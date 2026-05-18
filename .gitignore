@@ -1,0 +1,49 @@
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.vcxproj.user
+ipch/
+
+# Build outputs (any config/platform)
+x64/
+Debug/
+Release/
+build/
+out/
+
+# Compiled artifacts
+*.exe
+*.dll
+*.pdb
+*.ilk
+*.obj
+*.exp
+*.lib
+*.res
+*.ipch
+
+# Visual Studio temp files
+*.slnx.sqlite
+*.slnx.sqlite-shm
+*.slnx.sqlite-wal
+Browse.VC.db
+vc143.idb
+vc143.pdb
+*_i.c
+*[_]PCH.c
+*[_]PCH.h
+
+# IDE cache
+.vscode/
+*.lastbuildstate
+*.tlog/
+*.recipe
+*.FileListAbsolute.txt
+_IsIncrementalBuild
+*.log
+
+# OS files
+Thumbs.db
+.DS_Store
+desktop.ini
