@@ -21,7 +21,10 @@
 #include "dirent.h"
 
 // Global variables
+char meme[100][256];    // Array to store up to 100 filenames of max length 255
+int file_count = 0;
 
+FILE* pointer;
 
 void Dir_scan_txt()
 // This function scans the local directory and prints out all the files located there
@@ -39,6 +42,7 @@ void Dir_scan_txt()
 
     // Refer https://pubs.opengroup.org/onlinepubs/7990989775/xsh/readdir.html
     // for readdir()
+    file_count = 0;
     while ((de = readdir(dr)) != NULL)
         //printf("%s\n", de->d_name);
         if (de->d_type == DT_REG) 
@@ -48,29 +52,71 @@ void Dir_scan_txt()
             char* extension = strstr(de->d_name, ".txt"); // Get a pointer to the first occurrence of a string in another string. https://www.w3schools.com/c/ref_string_strstr.php
 
             // If found, make sure it's at the very end of the string
-            if (extension != NULL && strcmp(extension, ".txt") == 0) // Compare two strings to see which is greater. https://www.w3schools.com/c/ref_string_strcmp.php
+            if(extension != NULL && strcmp(extension, ".txt") == 0) // Compare two strings to see which is greater. https://www.w3schools.com/c/ref_string_strcmp.php
             {
                 printf("%s\n", de->d_name);
+                strcpy(meme[file_count + 1 ], de->d_name);  // is a built-in function used to copy one string into another. https://www.geeksforgeeks.org/c/strcpy-in-c/
+                file_count++;
             }
+          
         }
     closedir(dr);
     return 0;
 }
 void File_select()
 {
-    char UserAnswer[40];
+    int UserAnswer; // were the users values are saved
+    
+    // if there are no files found
+    if (file_count == 0)
+    {
+        printf("No .txt files found.\n");
+        return;
+    }
+
+    // prints number of files found and ask user witch file to read
+    printf("\nSelect a file number (1-%d): ", file_count);
+    scanf_s("%d", &UserAnswer);
+    
+    // Validate the user input "supid proof"
+    if (UserAnswer > 0 && UserAnswer <= file_count) 
+    {
+        printf("You selected: %s\n", meme[UserAnswer - 1]);
+        // Open and read your file here using meme[choice - 1]
+    }
+    else 
+    {
+        printf("Invalid selection.\n");
+    }
 
 
-    printf("Select a file\n");
-    scanf_s("%c%*c", &UserAnswer, 2);
-    //printf("file selected: %c\n", UserAnswer);
-    while (fscanf(UserAnswer, "%s%s%s", Text1, Text2, Text3) != -1) // the scan f returns  what it reads we can check that it reads 3 char, but the real problem is the end it reads 2 but it tryes to read if over and over.
+    // Setup to read files
+    char Text1[40];
+    char Text2[40];
+    char Text3[40];
+    int Meme_val[255];
+
+    // Pointing to the file destonation
+    pointer = fopen(meme[UserAnswer - 1], "r");
+
+    // file check
+    if (pointer == NULL)
+    {
+        printf("Error!\n");
+        return 1;
+    }
+    printf("Successfull\n");
+
+    // Basic print of all file values
+    while (fscanf(pointer, "%s%s%s", Text1, Text2, Text3) != -1) // the scan f returns  what it reads we can check that it reads 3 char, but the real problem is the end it reads 2 but it tryes to read if over and over.
         // But fscanf return -1 if there was a problem in returning 
     {
         // prints the values found
         printf("%s, %s, %s \n", Text1, Text2, Text3);
+        // Now I need to store all the numbers to then compare them
     }
 }
+
 
 int main(void)
 {
