@@ -125,19 +125,35 @@ void File_select()
 
 		move_over += 3; // move over 3 to store the next 3 values in the next 3 spaces of the array
     }
-	int Tb_compare_2[100] = Tb_compare; // Having 2 tables to compare the values to see the repeating numbers
+    int Tb_compare_2[100];
+	// Copy the values to another table to compare them and the repeating numbers
+    for (int i = 0; i < move_over; i++)
+    {
+        Tb_compare_2[i] = Tb_compare[i]; // Having 2 tables to compare the values to see the repeating numbers
+    }
 
 	int count = 0;
-
+	int repeat[100];
+	// This loop compares the values of the 2 tables and if it finds a match it saves the value in a new table to then print the repeating numbers
     for (int i = 0; i < move_over; i++)
     {
         count += 2;
-        printf("The value entered is %d \n", Tb_compare[i]);
+        printf("The value entered is %s \n", Tb_compare[i]);
+        int count_1 = 0;
+		// if the value of the first table is the same as the value of the second table it saves the value in a new table to then print the repeating numbers
 		if (Tb_compare_2[count] == Tb_compare[i])
 		{
-			printf("The value %d is in the file \n", Tb_compare[i]);
+			// Saves the value in a new table.
+			repeat[count_1] = Tb_compare[i];    // Saves value in table
+			count_1++;
 		}
     }
+	// prints the repeating numbers
+    for (int i = 0; i < move_over; i++)
+    {
+        printf("The value %d Repeated \n", repeat[i]);
+    }    
+
     
 }
 int main(void)
