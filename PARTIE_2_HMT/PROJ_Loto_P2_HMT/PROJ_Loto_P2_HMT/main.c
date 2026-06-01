@@ -98,7 +98,7 @@ void File_select()
     int Tb_compare[100];
 
     // Pointing to the file destonation
-    pointer = fopen(meme[UserAnswer - 1], "r");
+    pointer = fopen(meme[UserAnswer], "r");
 
     // file check
     if (pointer == NULL)
@@ -125,36 +125,42 @@ void File_select()
 
 		move_over += 3; // move over 3 to store the next 3 values in the next 3 spaces of the array
     }
-    int Tb_compare_2[100][100];
+
+    int Tb_compare_2[2][100]; // Other Table to compare
 	// Copy the values to another table to compare them and the repeating numbers
     for (int i = 0; i < move_over; i++)
     {
-        Tb_compare_2[i][0] = Tb_compare[i]; // Having 2 tables to compare the values to see the repeating numbers
+        Tb_compare_2[0][i] = Tb_compare[i]; // Having 2 tables to compare the values to see the repeating numbers
     }
     
-	int count = 0;
-	int repeat[100][100];
-	// This loop compares the values of the 2 tables and if it finds a match it saves the value in a new table to then print the repeating numbers
-    for (int i = 0; i < move_over; i++)
+	int count = 0;  // Counter to go threw all the values
+
+    while( count != move_over)  // Will go threw the table as many times as there is cases
     {
-        // We want this value to stay nuteral
-        int how_many_repeated = 0;
-
-        if (Tb_compare_2[count][0] == Tb_compare[i])
+        // This loop compares the values of the 2 tables and if it finds a match it saves the value in a new table to then print the repeating numbers
+        for (int i = 0; i < move_over; i++)
         {
-			// We save how many times the value is repeated in the file
-            how_many_repeated = Tb_compare_2[count][1];
-			// We add that the value is repeated one more time
-			how_many_repeated++;
-			// Save it into the second table
-            Tb_compare_2[count][1] = how_many_repeated;
-        }
+            // We want this value to stay nuteral, it's a place holder
+            int Nb_repeated = 0;
 
+            if (Tb_compare_2[0][count] == Tb_compare[i])
+            {
+                // We save how many times the value is repeated in the file
+                Nb_repeated = Tb_compare_2[1][count];
+                // We add that the value is repeated one more time
+                Nb_repeated++;
+                // Save it into the second table
+                Tb_compare_2[1][count] = Nb_repeated;
+                printf("%d was found, %d times\n", Tb_compare_2[0][count], Nb_repeated);
+            } 
+        }
+        count++;
     }
+	
 	// prints the repeating numbers
     for (int i = 0; i < move_over; i++)
     {
-        printf("The value %d Repeated %d\n", Tb_compare_2[i][0], Tb_compare_2[i][1]);
+        printf("The value %d Repeated %d\n", Tb_compare_2[0][i], Tb_compare_2[1][i]);
     }    
     
     
@@ -167,26 +173,3 @@ int main(void)
 
 
 
-/*	int count = 0;
-	int repeat[100];
-	// This loop compares the values of the 2 tables and if it finds a match it saves the value in a new table to then print the repeating numbers
-    for (int i = 0; i < move_over; i++)
-    {
-        count += 2;
-        printf("The value entered is %i \n", Tb_compare[i]);
-
-        int count_1 = 0;
-		// if the value of the first table is the same as the value of the second table it saves the value in a new table to then print the repeating numbers
-		if (Tb_compare_2[count] == Tb_compare[i])
-		{
-			// Saves the value in a new table.
-			repeat[count_1] = Tb_compare[i];    // Saves value in table
-			count_1++;
-		}
-    }/*
-	// prints the repeating numbers
-    for (int i = 0; i < move_over; i++)
-    {
-        printf("The value %d Repeated \n", repeat[i]);
-    }    
-    */
