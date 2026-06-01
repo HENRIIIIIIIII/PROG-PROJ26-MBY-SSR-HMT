@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdbool.h>
 
+#include "GestionAffichage.h"
+#include "GestionValeurlotoGagnante.h"
+
 bool fichier_present = true;
 
 int main()
@@ -24,7 +27,7 @@ void Saisie_new_loto()
     bool simMode = true;
 
     // Saisie du nom du loto + et plage des valeurs
-
+    // Plage de valeurs possibles : Limite inférieure et supérieure
 
     // Numéros complémentaires ?
     if (numCompl) {
@@ -44,3 +47,4 @@ void Saisie_new_loto()
     }
 
 }
+

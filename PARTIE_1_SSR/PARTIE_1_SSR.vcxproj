@@ -127,7 +127,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GestionAffichage.c" />
+    <ClCompile Include="GestionValeurlotoGagnante.c" />
     <ClCompile Include="PARTIE_1_SSR.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GestionAffichage.h" />
+    <ClInclude Include="GestionValeurlotoGagnante.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

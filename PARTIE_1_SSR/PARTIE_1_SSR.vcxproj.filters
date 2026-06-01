@@ -18,5 +18,19 @@
     <ClCompile Include="PARTIE_1_SSR.c">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="GestionAffichage.c">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="GestionValeurlotoGagnante.c">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GestionAffichage.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="GestionValeurlotoGagnante.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
