@@ -22,7 +22,7 @@ typedef struct {
 bool insererValeur(int valeurs[], int* nbValeurs, int nouvelleValeur);
 
 // Suppression de la derni�re valeur saisie
-bool supprimerDerniereValeur(int valeurs[], int* nbValeurs);
+bool supprimerDerniereValeur(int* nbValeurs);
 
 // Modification de la derni�re valeur saisie
 bool modifierDerniereValeur(int valeurs[], int nbValeurs, int nouvelleValeur);

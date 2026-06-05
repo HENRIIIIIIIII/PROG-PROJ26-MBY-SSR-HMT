@@ -297,8 +297,12 @@ void menu_principal(Loto* loto, const char* nomFichierActuel)
         printf("1. Inserer une nouvelle valeur\n");
         printf("2. Modifier la derniere valeur\n");
         printf("3. Supprimer la derniere valeur\n");
-        printf("4. Afficher les statistiques\n");
-        printf("5. Quitter et sauvegarder\n");
+        printf("4. Afficher la valeur la plus gagnante\n");
+        printf("5. Afficher la valeur la moins gagnante\n");
+        printf("6. Afficher les 6 meilleurs numeros\n");
+        printf("7. Afficher les 6 moins bons numeros\n");
+        printf("8. Afficher le tri des fréquences (File_sorting)\n");
+        printf("9. Quitter et sauvegarder\n");
         printf("Votre choix : ");
         
         if (scanf("%d", &choix) != 1) {
@@ -313,7 +317,7 @@ void menu_principal(Loto* loto, const char* nomFichierActuel)
                 if (!insererValeur(loto->valeurs, &loto->nbValeurs, valeur)) {
                     printf("Erreur : tableau plein, impossible d'insérer.\n");
                 } else {
-                    printf("Valeur inseree !\n");
+                    printf("Valeur inseree\n");
                 }
                 break;
             case 2:
@@ -324,7 +328,7 @@ void menu_principal(Loto* loto, const char* nomFichierActuel)
                 }
                 break;
             case 3:
-                if (!supprimerDerniereValeur(loto->valeurs, &loto->nbValeurs)) {
+                if (!supprimerDerniereValeur(&loto->nbValeurs)) {
                     printf("Erreur : aucune valeur a supprimer.\n");
                 } else {
                     printf("Derniere valeur supprimee.\n");
@@ -333,20 +337,44 @@ void menu_principal(Loto* loto, const char* nomFichierActuel)
             case 4:
                 if (loto->nbValeurs > 0) {
                     afficherValeurPlusGagnante(loto->valeurs, loto->nbValeurs);
-                    afficherValeurMoinsGagnante(loto->valeurs, loto->nbValeurs);
-                    afficher6MeilleursNumeros(loto->valeurs, loto->nbValeurs);
-                    afficher6MoinsBonsNumeros(loto->valeurs, loto->nbValeurs);
-                    File_sorting(loto); 
                 } else {
                     printf("Aucune donnee.\n");
                 }
                 break;
             case 5:
+                if (loto->nbValeurs > 0) {
+                    afficherValeurMoinsGagnante(loto->valeurs, loto->nbValeurs);
+                } else {
+                    printf("Aucune donnee.\n");
+                }
+                break;
+            case 6:
+                if (loto->nbValeurs > 0) {
+                    afficher6MeilleursNumeros(loto->valeurs, loto->nbValeurs);
+                } else {
+                    printf("Aucune donnee.\n");
+                }
+                break;
+            case 7:
+                if (loto->nbValeurs > 0) {
+                    afficher6MoinsBonsNumeros(loto->valeurs, loto->nbValeurs);
+                } else {
+                    printf("Aucune donnee.\n");
+                }
+                break;
+            case 8:
+                if (loto->nbValeurs > 0) {
+                    File_sorting(loto);
+                } else {
+                    printf("Aucune donnee.\n");
+                }
+                break;
+            case 9:
                 printf("Sauvegarde en cours...\n");
                 sauvegarderFichierLoto(loto, nomFichierActuel);
                 break;
             default:
                 printf("Choix invalide.\n");
         }
-    } while (choix != 5);
+    } while (choix != 9); // Changé de 5 à 9
 }

@@ -28,7 +28,7 @@ bool insererValeur(int valeurs[], int* nbValeurs, int nouvelleValeur)
 // Date modfification: le 01.06.26
 // Remarque: Retourne true si succes, false si le tableau est vide
 //----------------------------------------------------------------------------------//
-bool supprimerDerniereValeur(int valeurs[], int* nbValeurs)
+bool supprimerDerniereValeur(int* nbValeurs)
 {
     if (*nbValeurs <= 0) {
         return false;
