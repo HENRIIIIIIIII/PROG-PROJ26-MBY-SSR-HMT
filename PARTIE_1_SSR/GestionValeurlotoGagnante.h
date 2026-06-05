@@ -1,5 +1,17 @@
 #pragma once
 
+// Structure unique regroupant toutes les donnees d'un loto
+typedef struct {
+    char nom[MAX_NOM_LOTO];
+    int  minVal;
+    int  maxVal;
+    int  nbComplementaires;
+    int  minComp;
+    int  maxComp;
+    int  valeurs[MAX_VALEURS];
+    int  nbValeurs;
+} Loto;
+
 // Insertion d'un nouveau tirage
 void insererValeur(int valeurs[], int* nbValeurs, int nouvelleValeur);
 
@@ -17,3 +29,4 @@ int rechercherValeurMoinsGagnante(int valeurs[], int nbValeurs);
 
 // Nombre d'occurrences d'une valeur
 int compterOccurrences(int valeurs[], int nbValeurs, int valeur);
+

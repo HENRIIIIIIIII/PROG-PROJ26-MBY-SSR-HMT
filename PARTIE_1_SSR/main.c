@@ -15,8 +15,6 @@
 #include "GestionAffichage.h"
 #include "GestionValeurlotoGagnante.h"
 
-#define MAX_SCAN 100
-
 int Dir_scan_txt(int file_count, char meme[100][256]);
 // This function scans the local directory and prints out all the files located there
 // file_count counts the number of files found
@@ -28,13 +26,6 @@ int File_select(int move_over, char meme[100][256], int file_count, int Tb_compa
 // move_over is because we read the values by 3 so it's to take that into consideration
 // meme, file_count same as past function
 // Tb_compare saves the values so we can compare them, gets converted before use
-
-
-void File_sorting(int move_over, int Tb_compare[MAX_SCAN]);
-// this function duplicates the values into another table so then we can scan each number the number of times there are numbers
-// To then put in the second column how many times that number got repeated.
-// move_over remembers where we are in the text
-// Tb_compare duplicates the values so we can compare them
 
 void Saisie_new_loto(void);
 
@@ -57,13 +48,6 @@ int main()
     else
     {
         // Saisie nom du fichier a ouvrir
-    }
-
-    while (1)
-    {
-        file_count = Dir_scan_txt(file_count, meme);
-        move_over = File_select(move_over, meme, file_count, Tb_compare);
-        File_sorting(move_over, Tb_compare);
     }
         */
 
@@ -219,86 +203,4 @@ int File_select(int move_over, char meme[100][256], int file_count, int Tb_compa
     return move_over;
 }
 
-//----------------------------------------------------------------------------------//
-// Nom de la fonction: File_sorting
-// Entree / Sortie / I/O :  int move_over se souvient ou nous en sommes dans le texte
-//                          int Tb_compare[MAX_SCAN] duplique les valeurs afin que nous puissions les comparer
-//
-// Description:  cette fonction duplique les valeurs dans une autre table afin que nous puissions scanner chaque nombre le nombre de fois qu'il y a des nombres
-//               Pour ensuite mettre dans la deuxieme colonne combien de fois ce nombre a ete repete.
-// Date modfification: 03.06.26
-// Remarque: Need to change the type of memorazation
-//----------------------------------------------------------------------------------//
-void File_sorting(int move_over, int Tb_compare[MAX_SCAN])
-{
-    int Tb_compare_2[2][MAX_SCAN] = { 0 }; // Other Table to compare
 
-    // Makes table
-    for (int i = 0; i < MAX_SCAN; i++)
-    {
-        Tb_compare_2[0][i] = i; // Having 2 tables to compare the values to see the repeating numbers
-    }
-
-    int count = 0;  // Counter to go threw all the values
-    while (count != move_over)  // Will go threw the table as many times as there is cases
-    {
-        for (int i = 0; i < MAX_SCAN; i++)
-        {
-            // We want this value to stay nuteral, it's a place holder
-            int Nb_repeated = 0;
-
-            if (Tb_compare_2[0][i] == Tb_compare[count])
-            {
-                // We save how many times the value is repeated in the file
-                Nb_repeated = Tb_compare_2[1][i];
-                // We add that the value is repeated one more time
-                Nb_repeated++;
-                // Save it into the second table
-                Tb_compare_2[1][i] = Nb_repeated;
-                // printf("%d was found, %d times\n", Tb_compare_2[0][count], Nb_repeated);
-            }
-        }
-		count++;
-    }
-    // Bubble sorting source: https://www.geeksforgeeks.org/dsa/bubble-sort-algorithm/
-    for (int i = 0; i < MAX_SCAN - 1; i++)
-    {
-        for (int j = 0; j < MAX_SCAN - i - 1; j++)
-        {
-            // If the current frequency is less than the next frequency, swap them
-            if (Tb_compare_2[1][j] < Tb_compare_2[1][j + 1])
-            {
-                // Swap the frequencies
-                int temp_count = Tb_compare_2[1][j];
-                Tb_compare_2[1][j] = Tb_compare_2[1][j + 1];
-                Tb_compare_2[1][j + 1] = temp_count;
-
-                // Swap the actual values associated with them
-                int temp_val = Tb_compare_2[0][j];
-                Tb_compare_2[0][j] = Tb_compare_2[0][j + 1];
-                Tb_compare_2[0][j + 1] = temp_val;
-            }
-        }
-    }
-
-	// prints the repeating numbers
-    for (int i = 0; i < MAX_SCAN; i++)
-    {
-		if (Tb_compare_2[1][i] != 0)    // We dont a print the values that are not in the file, so if the value is repeated 0 times we dont print it
-        {
-            printf("value %d in table repeated: %d\n", Tb_compare_2[0][i], Tb_compare_2[1][i]);
-        }
-    }
-
-    // prints the top 6 repeating numbers
-    printf("The Top 6 numbers to bet on:\n");
-    for (int i = 0; i < 6; i++)
-    {
-        if (Tb_compare_2[1][i] != 0)    // We dont a print the values that are not in the file, so if the value is repeated 0 times we dont print it
-        {
-            printf("%d ", Tb_compare_2[0][i]);
-        }
-    }
-    printf("\n");
-
-}
