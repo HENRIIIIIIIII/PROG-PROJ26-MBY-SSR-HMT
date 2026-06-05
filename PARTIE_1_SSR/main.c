@@ -1,9 +1,12 @@
 #if defined(_MSC_VER)
+    // Nécessaire pour compiler sous Windows..
     #define _CRT_SECURE_NO_WARNINGS
-    // If compiling in Visual Studio, use the local Windows wrapper
-    #include "dirent.h" 
+    #include "dirent.h" // Atoi
 #else
-    // Compilation sur linux
+    
+    #ifndef _GNU_SOURCE
+        #define _GNU_SOURCE 
+    #endif
     #include <dirent.h> 
 #endif
 
