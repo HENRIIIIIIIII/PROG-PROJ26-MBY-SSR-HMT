@@ -1,5 +1,8 @@
 #pragma once
 
+#define MAX_NOM_LOTO 50
+#define MAX_VALEURS 100
+
 // Structure unique regroupant toutes les donnees d'un loto
 typedef struct {
     char nom[MAX_NOM_LOTO];

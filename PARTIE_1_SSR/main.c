@@ -29,146 +29,10 @@ int File_select(int move_over, char meme[100][256], int file_count, Loto* loto);
 // Tb_compare saves the values so we can compare them, gets converted before use
 
 void Saisie_nouveau_loto(void);
-
-void viderBuffer(void) {
-    int c;
-    while ((c = getchar()) != '\n' && c != EOF);
-}
-
-void Saisie_nouveau_loto(void)
-{
-    Loto nouveauLoto = { 0 };
-    char nomFichier[256];
-    char reponse;
-
-    printf("\n--- CREATION D'UN NOUVEAU LOTO ---\n");
-    printf("Nom du loto : ");
-    scanf("%s", nouveauLoto.nom);
-    viderBuffer();
-
-    printf("Plage de valeur (min) : ");
-    scanf("%d", &nouveauLoto.minVal);
-    viderBuffer();
-
-    printf("Plage de valeur (max) : ");
-    scanf("%d", &nouveauLoto.maxVal);
-    viderBuffer();
-
-    printf("Numeros complementaires ? (o/n) : ");
-    scanf("%c", &reponse);
-    viderBuffer();
-
-    if (reponse == 'o' || reponse == 'O') {
-        nouveauLoto.nbComplementaires = 1;
-        printf("Plage complementaire (min) : ");
-        scanf("%d", &nouveauLoto.minComp);
-        viderBuffer();
-
-        printf("Plage complementaire (max) : ");
-        scanf("%d", &nouveauLoto.maxComp);
-        viderBuffer();
-    }
-
-    printf("Mode simulation ? (o/n) : ");
-    scanf("%c", &reponse);
-    viderBuffer();
-
-    if (reponse == 'o' || reponse == 'O') {
-        int nbSimul;
-        printf("Combien de tirages a generer ? : ");
-        scanf("%d", &nbSimul);
-        viderBuffer();
-
-        for (int i = 0; i < nbSimul && i < MAX_VALEURS; i++) {
-            nouveauLoto.valeurs[nouveauLoto.nbValeurs++] = nouveauLoto.minVal + rand() % (nouveauLoto.maxVal - nouveauLoto.minVal + 1);
-        }
-    }
-
-    // Création du fichier
-    snprintf(nomFichier, sizeof(nomFichier), "log%s.txt", nouveauLoto.nom);
-    sauvegarderFichierLoto(&nouveauLoto, nomFichier);
-}
-
-void menu_principal(Loto* loto, const char* nomFichierActuel)
-{
-    int choix;
-    int valeur;
-
-    do {
-        printf("\n--- MENU PRINCIPAL ---\n");
-        printf("1. Inserer une nouvelle valeur\n");
-        printf("2. Modifier la derniere valeur\n");
-        printf("3. Supprimer la derniere valeur\n");
-        printf("4. Afficher les statistiques\n");
-        printf("5. Quitter et sauvegarder\n");
-        printf("Votre choix : ");
-        
-        if (scanf("%d", &choix) != 1) {
-            viderBuffer();
-            continue;
-        }
-
-        switch (choix) {
-            case 1:
-                printf("Valeur a inserer : ");
-                scanf("%d", &valeur);
-                insererValeur(loto->valeurs, &loto->nbValeurs, valeur);
-                printf("Valeur inseree !\n");
-                break;
-            case 2:
-                printf("Nouvelle valeur pour remplacer la derniere : ");
-                scanf("%d", &valeur);
-                modifierDerniereValeur(loto->valeurs, loto->nbValeurs, valeur);
-                break;
-            case 3:
-                supprimerDerniereValeur(loto->valeurs, &loto->nbValeurs);
-                printf("Derniere valeur supprimee.\n");
-                break;
-            case 4:
-                if (loto->nbValeurs > 0) {
-                    afficherValeurPlusGagnante(loto->valeurs, loto->nbValeurs);
-                    afficherValeurMoinsGagnante(loto->valeurs, loto->nbValeurs);
-                    afficher6MeilleursNumeros(loto->valeurs, loto->nbValeurs);
-                    afficher6MoinsBonsNumeros(loto->valeurs, loto->nbValeurs);
-                    File_sorting(loto); 
-                } else {
-                    printf("Aucune donnee.\n");
-                }
-                break;
-            case 5:
-                printf("Sauvegarde en cours...\n");
-                sauvegarderFichierLoto(loto, nomFichierActuel);
-                break;
-            default:
-                printf("Choix invalide.\n");
-        }
-    } while (choix != 5);
-}
-
-void sauvegarderFichierLoto(Loto* loto, const char* nomFichier)
-{
-    FILE* fichier = fopen(nomFichier, "w");
-    if (fichier == NULL) {
-        printf("Erreur : impossible de sauvegarder dans le fichier %s\n", nomFichier);
-        return;
-    }
-
-    // Sauvegarde des valeurs par blocs de 3 (Voir la fonction File_select)
-    for (int i = 0; i < loto->nbValeurs; i++) {
-        fprintf(fichier, "%d ", loto->valeurs[i]);
-        if ((i + 1) % 3 == 0) {
-            fprintf(fichier, "\n");
-        }
-    }
-    
-    // Si la dernière ligne n'était pas un multiple de 3, on rajoute un saut de ligne
-    if (loto->nbValeurs % 3 != 0) {
-        fprintf(fichier, "\n");
-    }
-
-    fclose(fichier);
-    printf("Fichier %s mis a jour avec succes.\n", nomFichier);
-}
+void viderBuffer(void);
+void sauvegarderFichierLoto(Loto* loto, const char* nomFichier);
+void Saisie_nouveau_loto(void);
+void menu_principal(Loto* loto, const char* nomFichierActuel);
 
 int main(void)
 {
@@ -341,4 +205,142 @@ int File_select(int move_over, char meme[100][256], int file_count, Loto* loto)
     return move_over;
 }
 
+void sauvegarderFichierLoto(Loto* loto, const char* nomFichier)
+{
+    FILE* fichier = fopen(nomFichier, "w");
+    if (fichier == NULL) {
+        printf("Erreur : impossible de sauvegarder dans le fichier %s\n", nomFichier);
+        return;
+    }
 
+    // Sauvegarde des valeurs par blocs de 3 (Voir la fonction File_select)
+    for (int i = 0; i < loto->nbValeurs; i++) {
+        fprintf(fichier, "%d ", loto->valeurs[i]);
+        if ((i + 1) % 3 == 0) {
+            fprintf(fichier, "\n");
+        }
+    }
+    
+    // Si la dernière ligne n'était pas un multiple de 3, on rajoute un saut de ligne
+    if (loto->nbValeurs % 3 != 0) {
+        fprintf(fichier, "\n");
+    }
+
+    fclose(fichier);
+    printf("Fichier %s mis a jour avec succes.\n", nomFichier);
+}
+
+void viderBuffer(void) {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+}
+
+void Saisie_nouveau_loto(void)
+{
+    Loto nouveauLoto = { 0 };
+    char nomFichier[256];
+    char reponse;
+
+    printf("\n--- CREATION D'UN NOUVEAU LOTO ---\n");
+    printf("Nom du loto : ");
+    scanf("%s", nouveauLoto.nom);
+    viderBuffer();
+
+    printf("Plage de valeur (min) : ");
+    scanf("%d", &nouveauLoto.minVal);
+    viderBuffer();
+
+    printf("Plage de valeur (max) : ");
+    scanf("%d", &nouveauLoto.maxVal);
+    viderBuffer();
+
+    printf("Numeros complementaires ? (o/n) : ");
+    scanf("%c", &reponse);
+    viderBuffer();
+
+    if (reponse == 'o' || reponse == 'O') {
+        nouveauLoto.nbComplementaires = 1;
+        printf("Plage complementaire (min) : ");
+        scanf("%d", &nouveauLoto.minComp);
+        viderBuffer();
+
+        printf("Plage complementaire (max) : ");
+        scanf("%d", &nouveauLoto.maxComp);
+        viderBuffer();
+    }
+
+    printf("Mode simulation ? (o/n) : ");
+    scanf("%c", &reponse);
+    viderBuffer();
+
+    if (reponse == 'o' || reponse == 'O') {
+        int nbSimul;
+        printf("Combien de tirages a generer ? : ");
+        scanf("%d", &nbSimul);
+        viderBuffer();
+
+        for (int i = 0; i < nbSimul && i < MAX_VALEURS; i++) {
+            nouveauLoto.valeurs[nouveauLoto.nbValeurs++] = nouveauLoto.minVal + rand() % (nouveauLoto.maxVal - nouveauLoto.minVal + 1);
+        }
+    }
+
+    // Création du fichier
+    snprintf(nomFichier, sizeof(nomFichier), "log%s.txt", nouveauLoto.nom);
+    sauvegarderFichierLoto(&nouveauLoto, nomFichier);
+}
+
+void menu_principal(Loto* loto, const char* nomFichierActuel)
+{
+    int choix;
+    int valeur;
+
+    do {
+        printf("\n--- MENU PRINCIPAL ---\n");
+        printf("1. Inserer une nouvelle valeur\n");
+        printf("2. Modifier la derniere valeur\n");
+        printf("3. Supprimer la derniere valeur\n");
+        printf("4. Afficher les statistiques\n");
+        printf("5. Quitter et sauvegarder\n");
+        printf("Votre choix : ");
+        
+        if (scanf("%d", &choix) != 1) {
+            viderBuffer();
+            continue;
+        }
+
+        switch (choix) {
+            case 1:
+                printf("Valeur a inserer : ");
+                scanf("%d", &valeur);
+                insererValeur(loto->valeurs, &loto->nbValeurs, valeur);
+                printf("Valeur inseree !\n");
+                break;
+            case 2:
+                printf("Nouvelle valeur pour remplacer la derniere : ");
+                scanf("%d", &valeur);
+                modifierDerniereValeur(loto->valeurs, loto->nbValeurs, valeur);
+                break;
+            case 3:
+                supprimerDerniereValeur(loto->valeurs, &loto->nbValeurs);
+                printf("Derniere valeur supprimee.\n");
+                break;
+            case 4:
+                if (loto->nbValeurs > 0) {
+                    afficherValeurPlusGagnante(loto->valeurs, loto->nbValeurs);
+                    afficherValeurMoinsGagnante(loto->valeurs, loto->nbValeurs);
+                    afficher6MeilleursNumeros(loto->valeurs, loto->nbValeurs);
+                    afficher6MoinsBonsNumeros(loto->valeurs, loto->nbValeurs);
+                    File_sorting(loto); 
+                } else {
+                    printf("Aucune donnee.\n");
+                }
+                break;
+            case 5:
+                printf("Sauvegarde en cours...\n");
+                sauvegarderFichierLoto(loto, nomFichierActuel);
+                break;
+            default:
+                printf("Choix invalide.\n");
+        }
+    } while (choix != 5);
+}

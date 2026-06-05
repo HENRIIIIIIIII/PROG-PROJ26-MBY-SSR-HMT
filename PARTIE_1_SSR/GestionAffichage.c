@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include "GestionAffichage.h"
-#include "GestionValeurlotoGagnante.h"
 
 //----------------------------------------------------------------------------------//
 // Nom de la fonction: afficherValeurPlusGagnante
