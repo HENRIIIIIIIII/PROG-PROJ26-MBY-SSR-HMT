@@ -1,20 +1,5 @@
 #pragma once
 
-#define MAX_NOM_LOTO 50
-#define MAX_VALEURS 100
-
-// Structure unique regroupant toutes les donnees d'un loto
-typedef struct {
-    char nom[MAX_NOM_LOTO];
-    int  minVal;
-    int  maxVal;
-    int  nbComplementaires;
-    int  minComp;
-    int  maxComp;
-    int  valeurs[MAX_VALEURS];
-    int  nbValeurs;
-} Loto;
-
 #define NUMERO_A_JOUER 6
 #define MAX_SCAN 100
 
