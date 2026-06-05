@@ -38,6 +38,11 @@ int file_count = 0;
 int move_over = 0;
 int Tb_compare[100];
 
+void viderBuffer(void) {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+}
+
 void Saisie_nouveau_loto(void)
 {
     Loto nouveauLoto = { 0 };
@@ -90,6 +95,62 @@ void Saisie_nouveau_loto(void)
     // Création du fichier
     snprintf(nomFichier, sizeof(nomFichier), "log%s.txt", nouveauLoto.nom);
     sauvegarderFichierLoto(&nouveauLoto, nomFichier);
+}
+
+void menu_principal(Loto* loto, const char* nomFichierActuel)
+{
+    int choix;
+    int valeur;
+
+    do {
+        printf("\n--- MENU PRINCIPAL ---\n");
+        printf("1. Inserer une nouvelle valeur\n");
+        printf("2. Modifier la derniere valeur\n");
+        printf("3. Supprimer la derniere valeur\n");
+        printf("4. Afficher les statistiques\n");
+        printf("5. Quitter et sauvegarder\n");
+        printf("Votre choix : ");
+        
+        if (scanf("%d", &choix) != 1) {
+            viderBuffer();
+            continue;
+        }
+
+        switch (choix) {
+            case 1:
+                printf("Valeur a inserer : ");
+                scanf("%d", &valeur);
+                insererValeur(loto->valeurs, &loto->nbValeurs, valeur);
+                printf("Valeur inseree !\n");
+                break;
+            case 2:
+                printf("Nouvelle valeur pour remplacer la derniere : ");
+                scanf("%d", &valeur);
+                modifierDerniereValeur(loto->valeurs, loto->nbValeurs, valeur);
+                break;
+            case 3:
+                supprimerDerniereValeur(loto->valeurs, &loto->nbValeurs);
+                printf("Derniere valeur supprimee.\n");
+                break;
+            case 4:
+                if (loto->nbValeurs > 0) {
+                    afficherValeurPlusGagnante(loto->valeurs, loto->nbValeurs);
+                    afficherValeurMoinsGagnante(loto->valeurs, loto->nbValeurs);
+                    afficher6MeilleursNumeros(loto->valeurs, loto->nbValeurs);
+                    afficher6MoinsBonsNumeros(loto->valeurs, loto->nbValeurs);
+                    File_sorting(loto); 
+                } else {
+                    printf("Aucune donnee.\n");
+                }
+                break;
+            case 5:
+                printf("Sauvegarde en cours...\n");
+                sauvegarderFichierLoto(loto, nomFichierActuel);
+                break;
+            default:
+                printf("Choix invalide.\n");
+        }
+    } while (choix != 5);
 }
 
 int main(void)

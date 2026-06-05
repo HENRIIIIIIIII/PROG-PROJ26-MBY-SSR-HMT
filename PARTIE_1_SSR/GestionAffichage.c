@@ -200,33 +200,32 @@ void afficher6MoinsBonsNumeros(int valeurs[], int nbValeurs)
 // Date modfification: 03.06.26
 // Remarque: Need to change the type of memorazation
 //----------------------------------------------------------------------------------//
-void File_sorting(int move_over, int Tb_compare[MAX_SCAN])
+void File_sorting(Loto* loto)
 {
-    int Tb_compare_2[2][MAX_SCAN] = { 0 }; // Other Table to compare
+    int Tb_compare[2][MAX_SCAN] = { 0 }; // Other Table to compare
 
     // Makes table
     for (int i = 0; i < MAX_SCAN; i++)
     {
-        Tb_compare_2[0][i] = i; // Having 2 tables to compare the values to see the repeating numbers
+        Tb_compare[0][i] = i; // Having 2 tables to compare the values to see the repeating numbers
     }
 
     int count = 0;  // Counter to go threw all the values
-    while (count != move_over)  // Will go threw the table as many times as there is cases
+    while (count != loto->nbValeurs)  // Will go threw the table as many times as there is cases
     {
         for (int i = 0; i < MAX_SCAN; i++)
         {
             // We want this value to stay nuteral, it's a place holder
             int Nb_repeated = 0;
 
-            if (Tb_compare_2[0][i] == Tb_compare[count])
+            if (Tb_compare[0][i] == loto->valeurs[count])
             {
                 // We save how many times the value is repeated in the file
-                Nb_repeated = Tb_compare_2[1][i];
+                Nb_repeated = Tb_compare[1][i];
                 // We add that the value is repeated one more time
                 Nb_repeated++;
                 // Save it into the second table
-                Tb_compare_2[1][i] = Nb_repeated;
-                // printf("%d was found, %d times\n", Tb_compare_2[0][count], Nb_repeated);
+                Tb_compare[1][i] = Nb_repeated;
             }
         }
 		count++;
@@ -237,17 +236,17 @@ void File_sorting(int move_over, int Tb_compare[MAX_SCAN])
         for (int j = 0; j < MAX_SCAN - i - 1; j++)
         {
             // If the current frequency is less than the next frequency, swap them
-            if (Tb_compare_2[1][j] < Tb_compare_2[1][j + 1])
+            if (Tb_compare[1][j] < Tb_compare[1][j + 1])
             {
                 // Swap the frequencies
-                int temp_count = Tb_compare_2[1][j];
-                Tb_compare_2[1][j] = Tb_compare_2[1][j + 1];
-                Tb_compare_2[1][j + 1] = temp_count;
+                int temp_count = Tb_compare[1][j];
+                Tb_compare[1][j] = Tb_compare[1][j + 1];
+                Tb_compare[1][j + 1] = temp_count;
 
                 // Swap the actual values associated with them
-                int temp_val = Tb_compare_2[0][j];
-                Tb_compare_2[0][j] = Tb_compare_2[0][j + 1];
-                Tb_compare_2[0][j + 1] = temp_val;
+                int temp_val = Tb_compare[0][j];
+                Tb_compare[0][j] = Tb_compare[0][j + 1];
+                Tb_compare[0][j + 1] = temp_val;
             }
         }
     }
@@ -255,9 +254,9 @@ void File_sorting(int move_over, int Tb_compare[MAX_SCAN])
 	// prints the repeating numbers
     for (int i = 0; i < MAX_SCAN; i++)
     {
-		if (Tb_compare_2[1][i] != 0)    // We dont a print the values that are not in the file, so if the value is repeated 0 times we dont print it
+		if (Tb_compare[1][i] != 0)    // We dont a print the values that are not in the file, so if the value is repeated 0 times we dont print it
         {
-            printf("value %d in table repeated: %d\n", Tb_compare_2[0][i], Tb_compare_2[1][i]);
+            printf("value %d in table repeated: %d\n", Tb_compare[0][i], Tb_compare[1][i]);
         }
     }
 
@@ -265,11 +264,10 @@ void File_sorting(int move_over, int Tb_compare[MAX_SCAN])
     printf("The Top 6 numbers to bet on:\n");
     for (int i = 0; i < 6; i++)
     {
-        if (Tb_compare_2[1][i] != 0)    // We dont a print the values that are not in the file, so if the value is repeated 0 times we dont print it
+        if (Tb_compare[1][i] != 0)    // We dont a print the values that are not in the file, so if the value is repeated 0 times we dont print it
         {
-            printf("%d ", Tb_compare_2[0][i]);
+            printf("%d ", Tb_compare[0][i]);
         }
     }
     printf("\n");
-
 }
