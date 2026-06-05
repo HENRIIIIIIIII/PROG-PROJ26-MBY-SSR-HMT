@@ -3,79 +3,86 @@
 
 //----------------------------------------------------------------------------------//
 // Nom de la fonction: afficherValeurPlusGagnante
-// Entrée / Sortie / I/O : I int valeurs[] (tableau comportant les valeurs du Loto), 
-//                         I int nbValeurs (pointeur afin de compter le nombre de fois qu'un valeur est sortie)
+// Entree / Sortie / I/O : I int valeurs[] (tableau des valeurs du Loto),
+//                         I int nbValeurs (nombre de valeurs dans le tableau)
 // Description: Affiche la valeur qui est sortie le plus de fois
-// Date modfification: le 01.06.26
-// Remarque: Si plusieurs valeurs ont le même nombre de sortie max alors la valeur inférieur sera celle de sortie
+// Date de modification: le 01.06.26
+// Remarque: Si plusieurs valeurs ont le meme nombre de sorties max,
+//           la valeur inferieure est selectionnee (premiere trouvee).
 //----------------------------------------------------------------------------------//
 void afficherValeurPlusGagnante(int valeurs[], int nbValeurs)
 {
     int valeur = rechercherValeurPlusGagnante(valeurs, nbValeurs);
     int occ = compterOccurrences(valeurs, nbValeurs, valeur);
 
-    printf("\nValeur la plus gagnante : %d (%d occurrences)\n",
-        valeur, occ);
+    printf(MSG_VAL_PLUS_GAG, valeur, occ);
 }
 
 //----------------------------------------------------------------------------------//
 // Nom de la fonction: afficherValeurMoinsGagnante
-// Entrée / Sortie / I/O : I int valeurs[] (tableau comportant les valeurs du Loto), 
-//                         I int nbValeurs (pointeur afin de compter le nombre de fois qu'un valeur est sortie)
-// Description: Fonction permettant d'afficher le nombre de fois que la valeur la plus sortie est sortie
-// Date modfification: le 01.06.26
-// Remarque: Si plusieurs valeurs ont le même nombre de sortie min alors la valeur inférieur sera celle de sortie
+// Entree / Sortie / I/O : I int valeurs[] (tableau des valeurs du Loto),
+//                         I int nbValeurs (nombre de valeurs dans le tableau)
+// Description: Affiche la valeur qui est sortie le moins de fois
+// Date de modification: le 01.06.26
+// Remarque: Si plusieurs valeurs ont le meme nombre de sorties min,
+//           la valeur inferieure est selectionnee (premiere trouvee).
 //----------------------------------------------------------------------------------//
 void afficherValeurMoinsGagnante(int valeurs[], int nbValeurs)
 {
     int valeur = rechercherValeurMoinsGagnante(valeurs, nbValeurs);
     int occ = compterOccurrences(valeurs, nbValeurs, valeur);
 
-    printf("\nValeur la moins gagnante : %d (%d occurrences)\n",
-        valeur, occ);
+    printf(MSG_VAL_MOINS_GAG, valeur, occ);
 }
 
 //----------------------------------------------------------------------------------//
 // Nom de la fonction: afficher6MeilleursNumeros
-// Entrée / Sortie / I/O : I int valeurs[] (tableau comportant les valeurs du Loto), 
-//                         I int nbValeurs (pointeur afin de compter le nombre de fois qu'un valeur est sortie)
-// Description: Fonction permettant d'afficher les 6 valeurs les plus sorties
-// Date modfification: le 01.06.26
-// Remarque: Si plusieurs valeurs ont le même nombre de sortie min alors la valeur inférieur sera celle de sortie
+// Entree / Sortie / I/O : I int valeurs[] (tableau des valeurs du Loto),
+//                         I int nbValeurs (nombre de valeurs dans le tableau)
+// Description: Affiche les NUMERO_A_JOUER valeurs les plus frequentes en ordre croissant
+// Date de modification: le 01.06.26
+// Remarque: Utilise un tri par insertion pour maintenir l'ordre croissant des occurrences
 //----------------------------------------------------------------------------------//
 void afficher6MeilleursNumeros(int valeurs[], int nbValeurs)
 {
     int numeros[NUMERO_A_JOUER];
     int occurrences[NUMERO_A_JOUER];
 
+    // Initialisation des tableaux avec -1 pour marquer les cases vides
     for (int i = 0; i < NUMERO_A_JOUER; i++)
     {
         numeros[i] = -1;
         occurrences[i] = -1;
     }
 
+    // Pour chaque valeur du loto, on calcule son nombre d'occurrences
+    // puis on l'insere dans le top si elle a plus d'occurrences que le dernier du top
     for (int i = 0; i < nbValeurs; i++)
     {
         int valeur = valeurs[i];
         int occ = compterOccurrences(valeurs, nbValeurs, valeur);
 
-        int dejaPresent = 0;
+        int dejaPresent = false;
 
+        // Verification que la valeur n'est pas deja dans le top
         for (int j = 0; j < NUMERO_A_JOUER; j++)
         {
             if (numeros[j] == valeur)
             {
-                dejaPresent = 1;
+                dejaPresent = true;
             }
         }
 
+        // Si la valeur n'est pas deja presente, on la place au bon endroit
+        // dans le top en decalant les elements vers la droite
         if (!dejaPresent)
         {
             for (int j = 0; j < NUMERO_A_JOUER; j++)
             {
                 if (occ > occurrences[j])
                 {
-                    for (int k = 5; k > j; k--)
+                    // Decale tous les elements du top vers la droite pour faire de la place
+                    for (int k = NUMERO_A_JOUER - 1; k > j; k--)
                     {
                         numeros[k] = numeros[k - 1];
                         occurrences[k] = occurrences[k - 1];
@@ -89,8 +96,9 @@ void afficher6MeilleursNumeros(int valeurs[], int nbValeurs)
         }
     }
 
-    // Tri croissant demandé par le cahier des charges
-    for (int i = 0; i < 5; i++)
+    // Tri croissant des numeros (demande du cahier des charges)
+    // On utilise un tri par selection simple sur les numeros eux-memes
+    for (int i = 0; i < NUMERO_A_JOUER - 1; i++)
     {
         for (int j = i + 1; j < NUMERO_A_JOUER; j++)
         {
@@ -103,7 +111,7 @@ void afficher6MeilleursNumeros(int valeurs[], int nbValeurs)
         }
     }
 
-    printf("\n6 meilleurs numeros : ");
+    printf(MSG_6_MEILLEURS);
 
     for (int i = 0; i < NUMERO_A_JOUER; i++)
     {
@@ -116,39 +124,54 @@ void afficher6MeilleursNumeros(int valeurs[], int nbValeurs)
     printf("\n");
 }
 
+//----------------------------------------------------------------------------------//
+// Nom de la fonction: afficher6MoinsBonsNumeros
+// Entree / Sortie / I/O : I int valeurs[] (tableau des valeurs du Loto),
+//                         I int nbValeurs (nombre de valeurs dans le tableau)
+// Description: Affiche les NUMERO_A_JOUER valeurs les moins frequentes en ordre croissant
+// Date de modification: le 01.06.26
+// Remarque: Logique symetrique a afficher6MeilleursNumeros mais avec tri descendant
+//----------------------------------------------------------------------------------//
 void afficher6MoinsBonsNumeros(int valeurs[], int nbValeurs)
 {
     int numeros[NUMERO_A_JOUER];
     int occurrences[NUMERO_A_JOUER];
 
+    // Initialisation des tableaux avec -1 pour marquer les cases vides
     for (int i = 0; i < NUMERO_A_JOUER; i++)
     {
         numeros[i] = -1;
-        occurrences[i] = 999999;
+        occurrences[i] = -1;
     }
 
+    // Pour chaque valeur du loto, on calcule son nombre d'occurrences
+    // puis on l'insere dans le bottom si elle a moins d'occurrences que le dernier du bottom
     for (int i = 0; i < nbValeurs; i++)
     {
         int valeur = valeurs[i];
         int occ = compterOccurrences(valeurs, nbValeurs, valeur);
 
-        int dejaPresent = 0;
+        int dejaPresent = false;
 
+        // Verification que la valeur n'est pas deja dans le bottom
         for (int j = 0; j < NUMERO_A_JOUER; j++)
         {
             if (numeros[j] == valeur)
             {
-                dejaPresent = 1;
+                dejaPresent = true;
             }
         }
 
+        // Si la valeur n'est pas deja presente, on la place au bon endroit
+        // dans le bottom en decalant les elements vers la droite
         if (!dejaPresent)
         {
             for (int j = 0; j < NUMERO_A_JOUER; j++)
             {
                 if (occ < occurrences[j])
                 {
-                    for (int k = 5; k > j; k--)
+                    // Decale tous les elements du bottom vers la droite pour faire de la place
+                    for (int k = NUMERO_A_JOUER - 1; k > j; k--)
                     {
                         numeros[k] = numeros[k - 1];
                         occurrences[k] = occurrences[k - 1];
@@ -162,8 +185,8 @@ void afficher6MoinsBonsNumeros(int valeurs[], int nbValeurs)
         }
     }
 
-    // Tri croissant demandé
-    for (int i = 0; i < 5; i++)
+    // Tri croissant des numeros
+    for (int i = 0; i < NUMERO_A_JOUER - 1; i++)
     {
         for (int j = i + 1; j < NUMERO_A_JOUER; j++)
         {
@@ -176,7 +199,7 @@ void afficher6MoinsBonsNumeros(int valeurs[], int nbValeurs)
         }
     }
 
-    printf("\n6 moins bons numeros : ");
+    printf(MSG_6_MOINS_BONS);
 
     for (int i = 0; i < NUMERO_A_JOUER; i++)
     {
@@ -190,59 +213,72 @@ void afficher6MoinsBonsNumeros(int valeurs[], int nbValeurs)
 }
 
 //----------------------------------------------------------------------------------//
-// Nom de la fonction: File_sorting
-// Entree / Sortie / I/O :  int move_over se souvient ou nous en sommes dans le texte
-//                          int Tb_compare[MAX_SCAN] duplique les valeurs afin que nous puissions les comparer
-//
-// Description:  cette fonction duplique les valeurs dans une autre table afin que nous puissions scanner chaque nombre le nombre de fois qu'il y a des nombres
-//               Pour ensuite mettre dans la deuxieme colonne combien de fois ce nombre a ete repete.
-// Date modfification: 03.06.26
-// Remarque: Need to change the type of memorazation
+// Nom de la fonction: trierFichier
+// Entree / Sortie / I/O :  Loto* loto structure contenant les valeurs a trier
+// Description: Calcule la frequence d'apparition de chaque valeur unique,
+//              puis affiche le resultat trie par frequence decroissante via
+//              un algorithme de Tri a Bulles (Bubble Sort).
+// Date de modification: 03.06.26
+// Remarque: Utilise un tableau 2D Tb_compare[2][MAX_SCAN] :
+//           - ligne 0 : les valeurs uniques
+//           - ligne 1 : le nombre d'occurrences de chaque valeur
 //----------------------------------------------------------------------------------//
-void File_sorting(Loto* loto)
+void trierFichier(Loto* loto)
 {
-    int Tb_compare[2][MAX_SCAN] = { 0 }; // Other Table to compare
+    // Tableau 2D pour le comptage des frequences :
+    // Tb_compare[0][i] contient la valeur i (de 0 a MAX_SCAN-1)
+    // Tb_compare[1][i] contient le nombre de fois ou cette valeur apparait
+    int Tb_compare[2][MAX_SCAN] = { 0 };
 
-    // Makes table
+    // Initialisation : on remplit la premiere ligne avec les indices 0, 1, 2, ..., MAX_SCAN-1
+    // Cela permet de couvrir toutes les valeurs possibles dans la plage du loto
     for (int i = 0; i < MAX_SCAN; i++)
     {
-        Tb_compare[0][i] = i; // Having 2 tables to compare the values to see the repeating numbers
+        Tb_compare[0][i] = i;
     }
 
-    int count = 0;  // Counter to go threw all the values
-    while (count != loto->nbValeurs)  // Will go threw the table as many times as there is cases
+    // Algorithme de comptage des frequences :
+    // Pour chaque valeur du loto, on parcourt le tableau de comparaison
+    // et on incrémente le compteur correspondant a cette valeur
+    int count = 0;
+    while (count != loto->nbValeurs)
     {
         for (int i = 0; i < MAX_SCAN; i++)
         {
-            // We want this value to stay nuteral, it's a place holder
+            // Nb_repeated stocke le compteur actuel pour la valeur Tb_compare[0][i]
             int Nb_repeated = 0;
 
             if (Tb_compare[0][i] == loto->valeurs[count])
             {
-                // We save how many times the value is repeated in the file
+                // Recuperation du compteur actuel
                 Nb_repeated = Tb_compare[1][i];
-                // We add that the value is repeated one more time
+                // Incrémentation du compteur (une occurrence de plus)
                 Nb_repeated++;
-                // Save it into the second table
+                // Sauvegarde du nouveau compteur
                 Tb_compare[1][i] = Nb_repeated;
             }
         }
-		count++;
+        count++;
     }
-    // Bubble sorting source: https://www.geeksforgeeks.org/dsa/bubble-sort-algorithm/
+
+    // Tri a Bulles (Bubble Sort) sur les frequences (ligne 1) :
+    // Parcours le tableau en comparant chaque paire d'elements adjacents.
+    // Si la frequence courante est inferieure a la suivante, on inverse les deux lignes
+    // (a la fois la valeur ET son compteur) pour faire remonter les plus frequentes.
+    // Complexite : O(n^2) — acceptable car MAX_SCAN = 100.
     for (int i = 0; i < MAX_SCAN - 1; i++)
     {
         for (int j = 0; j < MAX_SCAN - i - 1; j++)
         {
-            // If the current frequency is less than the next frequency, swap them
+            // Si la frequence en j est inferieure a celle en j+1, on inverse
             if (Tb_compare[1][j] < Tb_compare[1][j + 1])
             {
-                // Swap the frequencies
+                // Echange des frequences
                 int temp_count = Tb_compare[1][j];
                 Tb_compare[1][j] = Tb_compare[1][j + 1];
                 Tb_compare[1][j + 1] = temp_count;
 
-                // Swap the actual values associated with them
+                // Echange des valeurs associees
                 int temp_val = Tb_compare[0][j];
                 Tb_compare[0][j] = Tb_compare[0][j + 1];
                 Tb_compare[0][j + 1] = temp_val;
@@ -250,20 +286,20 @@ void File_sorting(Loto* loto)
         }
     }
 
-	// prints the repeating numbers
+    // Affichage de toutes les valeurs avec leur frequence (triee par frequence decroissante)
     for (int i = 0; i < MAX_SCAN; i++)
     {
-		if (Tb_compare[1][i] != 0)    // We dont a print the values that are not in the file, so if the value is repeated 0 times we dont print it
+        if (Tb_compare[1][i] != 0)
         {
-            printf("value %d in table repeated: %d\n", Tb_compare[0][i], Tb_compare[1][i]);
+            printf(MSG_FILE_SORT_VAL, Tb_compare[0][i], Tb_compare[1][i]);
         }
     }
 
-    // prints the top 6 repeating numbers
-    printf("The Top 6 numbers to bet on:\n");
+    // Affichage du top 6 des valeurs les plus frequentes
+    printf(MSG_FILE_SORT_TOP);
     for (int i = 0; i < 6; i++)
     {
-        if (Tb_compare[1][i] != 0)    // We dont a print the values that are not in the file, so if the value is repeated 0 times we dont print it
+        if (Tb_compare[1][i] != 0)
         {
             printf("%d ", Tb_compare[0][i]);
         }

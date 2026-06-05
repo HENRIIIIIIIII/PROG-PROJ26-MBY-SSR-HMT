@@ -2,9 +2,7 @@
 #define GESTION_VALEUR_LOTO_GAGNANTE_H
 
 #include <stdbool.h>
-
-#define MAX_NOM_LOTO 50
-#define MAX_VALEURS 100
+#include "constantes.h"
 
 // Structure unique regroupant toutes les donnees d'un loto
 typedef struct {
@@ -21,10 +19,10 @@ typedef struct {
 // Insertion d'un nouveau tirage
 bool insererValeur(int valeurs[], int* nbValeurs, int nouvelleValeur);
 
-// Suppression de la derni�re valeur saisie
+// Suppression de la derniere valeur saisie
 bool supprimerDerniereValeur(int* nbValeurs);
 
-// Modification de la derni�re valeur saisie
+// Modification de la derniere valeur saisie
 bool modifierDerniereValeur(int valeurs[], int nbValeurs, int nouvelleValeur);
 
 // Recherche de la valeur la plus gagnante
@@ -37,4 +35,3 @@ int rechercherValeurMoinsGagnante(int valeurs[], int nbValeurs);
 int compterOccurrences(int valeurs[], int nbValeurs, int valeur);
 
 #endif /* GESTION_VALEUR_LOTO_GAGNANTE_H */
-
