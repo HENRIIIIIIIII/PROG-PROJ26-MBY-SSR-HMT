@@ -11,6 +11,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 #include "GestionAffichage.h"
 #include "GestionValeurlotoGagnante.h"
@@ -29,11 +30,6 @@ int File_select(int move_over, char meme[100][256], int file_count, int Tb_compa
 
 void Saisie_nouveau_loto(void);
 
-bool fichier_loto_present(void)
-{
-
-}
-
 bool fichier_present = true;
 FILE* pointer;
 
@@ -42,62 +38,107 @@ int file_count = 0;
 int move_over = 0;
 int Tb_compare[100];
 
-int main()
+void Saisie_nouveau_loto(void)
 {
-    int choix;
+    Loto nouveauLoto = { 0 };
+    char nomFichier[256];
+    char reponse;
+
+    printf("\n--- CREATION D'UN NOUVEAU LOTO ---\n");
+    printf("Nom du loto : ");
+    scanf("%s", nouveauLoto.nom);
+    viderBuffer();
+
+    printf("Plage de valeur (min) : ");
+    scanf("%d", &nouveauLoto.minVal);
+    viderBuffer();
+
+    printf("Plage de valeur (max) : ");
+    scanf("%d", &nouveauLoto.maxVal);
+    viderBuffer();
+
+    printf("Numeros complementaires ? (o/n) : ");
+    scanf("%c", &reponse);
+    viderBuffer();
+
+    if (reponse == 'o' || reponse == 'O') {
+        nouveauLoto.nbComplementaires = 1;
+        printf("Plage complementaire (min) : ");
+        scanf("%d", &nouveauLoto.minComp);
+        viderBuffer();
+
+        printf("Plage complementaire (max) : ");
+        scanf("%d", &nouveauLoto.maxComp);
+        viderBuffer();
+    }
+
+    printf("Mode simulation ? (o/n) : ");
+    scanf("%c", &reponse);
+    viderBuffer();
+
+    if (reponse == 'o' || reponse == 'O') {
+        int nbSimul;
+        printf("Combien de tirages a generer ? : ");
+        scanf("%d", &nbSimul);
+        viderBuffer();
+
+        for (int i = 0; i < nbSimul && i < MAX_VALEURS; i++) {
+            nouveauLoto.valeurs[nouveauLoto.nbValeurs++] = nouveauLoto.minVal + rand() % (nouveauLoto.maxVal - nouveauLoto.minVal + 1);
+        }
+    }
+
+    // Création du fichier
+    snprintf(nomFichier, sizeof(nomFichier), "log%s.txt", nouveauLoto.nom);
+    sauvegarderFichierLoto(&nouveauLoto, nomFichier);
+}
+
+int main(void)
+{
+    // Initialisation du générateur aléatoire pour la simulation
+    srand((unsigned int)time(NULL));
+
+    Loto monLoto = { 0 }; 
+    char nomFichierLotoActuel[256] = "";
 
     printf("=== BIENVENUE DANS L'ANALYSEUR DE LOTO ===\n");
 
-    // Boucle infinie correspondant au câblage externe de votre Flowchart
     while (true)
     {
-        // fichier txt existant ?
         int file_count = Dir_scan_txt(0, meme);
 
         if (file_count > 0)
         {
-            // Saisie du nom du fichier à ouvrir
             int move_over = File_select(0, meme, file_count, Tb_compare);
 
             if (move_over > 0)
             {
-                // Affichages des informations contenues dans le fichier
-                // On extrait les informations de Tb_compare pour remplir proprement 'monLoto'
-                chargerDonneesLoto(&monLoto, Tb_compare, move_over);
+                strcpy(nomFichierLotoActuel, "lotoTmp.txt"); 
+                
+                chargerDonneesLoto(&monLoto, Tb_compare, move_over, nomFichierLotoActuel);
                 
                 printf("\n--- CONFIGURATION DU LOTO CHARGÉ ---\n");
                 printf("Nom : %s | Saisies enregistrees : %d\n", monLoto.nom, monLoto.nbValeurs);
 
-                // Étape Flowchart : "Switchcase point 3"
-                // Cette fonction gère l'affichage du menu et l'exécution des cas (pt 3)
-                menu_principal(&monLoto, nomFichierActuel);
+                menu_principal(&monLoto, nomFichierLotoActuel);
                 
+                // Fin du programme après avoir quitté le menu
                 break;
             }
             else
             {
-                printf("Erreur lors de l'ouverture ou de la lecture du fichier.\n");
+                printf("Erreur lors de l'ouverture ou fichier vide.\n");
                 break;
             }
         }
         else
         {
-            // Cette fonction encapsule :
-            // 1. Saisie du nom du loto et plage de valeurs
-            // 2. Losange "Numéros complémentaires ?" -> Si oui, saisie plage
-            // 3. Losange "Mode simulation ?" -> Si oui, saisie nb valeurs + génération aléatoire
-            // 4. Étape "Création du fichier" physique sur le disque
             Saisie_nouveau_loto();
-
             printf("\nFichier de configuration cree avec succes.\n");
-            
-            // ATTENTION : On ne met pas de "break" ni de "return" ! 
-            // La boucle 'while (true)' recommence instantanément depuis le début.
-            // Au prochain tour, 'Dir_scan_txt' va détecter le fichier qu'on vient de créer,
+            // La boucle recommence et Dir_scan_txt trouvera le nouveau fichier
         }
     }
 
-    return 0;
+    return EXIT_SUCCESS;
 }
 
 void Saisie_nouveau_loto(void)
