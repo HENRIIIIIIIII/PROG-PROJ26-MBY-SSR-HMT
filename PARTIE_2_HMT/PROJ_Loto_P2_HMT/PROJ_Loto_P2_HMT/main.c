@@ -29,11 +29,15 @@ int main(void)
     char meme[100][256];    // Array to store up to 100 filenames of max length 255
     int file_count = 0;
     int move_over = 0;
-
     int Tb_compare[100];
-    file_count = Dir_scan_txt(file_count, meme);
-    move_over = File_select(move_over, meme, file_count, Tb_compare);
-    File_sorting(move_over, Tb_compare);
+
+    while (1)
+    {
+        file_count = Dir_scan_txt(file_count, meme);
+        move_over = File_select(move_over, meme, file_count, Tb_compare);
+        File_sorting(move_over, Tb_compare);
+    }
+
 }
 
 
