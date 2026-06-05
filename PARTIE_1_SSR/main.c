@@ -30,14 +30,6 @@ int File_select(int move_over, char meme[100][256], int file_count, Loto* loto);
 
 void Saisie_nouveau_loto(void);
 
-bool fichier_present = true;
-FILE* pointer;
-
-char meme[100][256];    // Array to store up to 100 filenames of max length 255
-int file_count = 0;
-int move_over = 0;
-int Tb_compare[100];
-
 void viderBuffer(void) {
     int c;
     while ((c = getchar()) != '\n' && c != EOF);
@@ -153,8 +145,35 @@ void menu_principal(Loto* loto, const char* nomFichierActuel)
     } while (choix != 5);
 }
 
+void sauvegarderFichierLoto(Loto* loto, const char* nomFichier)
+{
+    FILE* fichier = fopen(nomFichier, "w");
+    if (fichier == NULL) {
+        printf("Erreur : impossible de sauvegarder dans le fichier %s\n", nomFichier);
+        return;
+    }
+
+    // Sauvegarde des valeurs par blocs de 3 (Voir la fonction File_select)
+    for (int i = 0; i < loto->nbValeurs; i++) {
+        fprintf(fichier, "%d ", loto->valeurs[i]);
+        if ((i + 1) % 3 == 0) {
+            fprintf(fichier, "\n");
+        }
+    }
+    
+    // Si la dernière ligne n'était pas un multiple de 3, on rajoute un saut de ligne
+    if (loto->nbValeurs % 3 != 0) {
+        fprintf(fichier, "\n");
+    }
+
+    fclose(fichier);
+    printf("Fichier %s mis a jour avec succes.\n", nomFichier);
+}
+
 int main(void)
 {
+    char meme[100][256];    // Array to store up to 100 filenames of max length 255
+
     // Initialisation du générateur aléatoire pour la simulation
     srand((unsigned int)time(NULL));
 
@@ -197,35 +216,7 @@ int main(void)
         }
     }
 
-    return EXIT_SUCCESS;
-}
-
-void Saisie_nouveau_loto(void)
-{
-    bool numCompl = true;
-    bool simMode = true;
-
-    // Saisie du nom du loto + et plage des valeurs
-    // Plage de valeurs possibles : Limite inferieure et superieure
-
-    // Numeros complementaires ?
-    if (numCompl) {
-        // Saisie plage de valeurs
-    }
-    else
-    {
-        // Mode simulation ?
-        if (simMode)
-        {
-            // Saisie du nombre de valeurs aleatoires
-        }
-        else
-        {
-            // Creation du fichier
-            /* goto -> fichier texte existant ? */
-        }
-    }
-
+    return 0;
 }
 
 //----------------------------------------------------------------------------------//
@@ -286,6 +277,7 @@ int Dir_scan_txt(int file_count, char meme[100][256])
 //----------------------------------------------------------------------------------//
 int File_select(int move_over, char meme[100][256], int file_count, Loto* loto)
 {
+    FILE* pointer;
     int userAnswer; // were the users values are saved
 
     // if there are no files found
