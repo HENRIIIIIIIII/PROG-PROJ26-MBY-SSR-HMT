@@ -62,7 +62,6 @@ bool modifierDerniereValeur(int valeurs[], int nbValeurs, int nouvelleValeur)
 //                         O int (nombre d'occurrences de la valeur)
 // Description: Compte combien de fois une valeur apparait dans le tableau.
 // Date de modification: le 01.06.26
-// Remarque: Complexite O(n) — parcourt tout le tableau.
 //----------------------------------------------------------------------------------//
 int compterOccurrences(int valeurs[], int nbValeurs, int valeur)
 {
@@ -89,7 +88,6 @@ int compterOccurrences(int valeurs[], int nbValeurs, int valeur)
 //              Si plusieurs valeurs ont le meme nombre de sorties max,
 //              la valeur inferieure est selectionnee (premiere trouvee).
 // Date de modification: le 01.06.26
-// Remarque: Complexite O(n^2) car compterOccurrences est appelee a chaque iteration.
 //----------------------------------------------------------------------------------//
 int rechercherValeurPlusGagnante(int valeurs[], int nbValeurs)
 {
@@ -124,7 +122,6 @@ int rechercherValeurPlusGagnante(int valeurs[], int nbValeurs)
 //              Si plusieurs valeurs ont le meme nombre de sorties min,
 //              la valeur inferieure est selectionnee (premiere trouvee).
 // Date de modification: le 01.06.26
-// Remarque: Complexite O(n^2) car compterOccurrences est appelee a chaque iteration.
 //----------------------------------------------------------------------------------//
 int rechercherValeurMoinsGagnante(int valeurs[], int nbValeurs)
 {

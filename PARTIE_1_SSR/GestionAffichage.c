@@ -56,7 +56,6 @@ void afficher6MeilleursNumeros(int valeurs[], int nbValeurs)
     }
 
     // Pour chaque valeur du loto, on calcule son nombre d'occurrences
-    // puis on l'insere dans le top si elle a plus d'occurrences que le dernier du top
     for (int i = 0; i < nbValeurs; i++)
     {
         int valeur = valeurs[i];
@@ -265,7 +264,6 @@ void trierFichier(Loto* loto)
     // Parcours le tableau en comparant chaque paire d'elements adjacents.
     // Si la frequence courante est inferieure a la suivante, on inverse les deux lignes
     // (a la fois la valeur ET son compteur) pour faire remonter les plus frequentes.
-    // Complexite : O(n^2) — acceptable car MAX_SCAN = 100.
     for (int i = 0; i < MAX_SCAN - 1; i++)
     {
         for (int j = 0; j < MAX_SCAN - i - 1; j++)
