@@ -1,4 +1,5 @@
-#pragma once
+#ifndef GESTION_AFFICHAGE_H
+#define GESTION_AFFICHAGE_H
 
 #include "GestionValeurlotoGagnante.h"
 
@@ -21,4 +22,6 @@ void File_sorting(Loto* loto);
 // this function duplicates the values into another table so then we can scan each number the number of times there are numbers
 // To then put in the second column how many times that number got repeated.
 // move_over remembers where we are in the text
-// Tb_compare duplicates the values so we can compare them
+// Tb_compare duplicates the values so we can compare them.
+
+#endif /* GESTION_AFFICHAGE_H */

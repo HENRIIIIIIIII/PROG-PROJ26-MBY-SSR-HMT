@@ -1,3 +1,4 @@
+#include <stdbool.h>
 #include "GestionValeurlotoGagnante.h"
 
 //----------------------------------------------------------------------------------//
@@ -7,12 +8,16 @@
 //                          int nouvelleValeur (Valeur que l'on veut inscrire dans le fichier)
 // Description: Fonction permettant d'insérer une nouvelle valeur dans le fichier loto
 // Date modfification: le 01.06.26
-// Remarque: -
+// Remarque: Retourne true si succes, false si le tableau est plein
 //----------------------------------------------------------------------------------//
-void insererValeur(int valeurs[], int* nbValeurs, int nouvelleValeur)
+bool insererValeur(int valeurs[], int* nbValeurs, int nouvelleValeur)
 {
+    if (*nbValeurs >= MAX_VALEURS) {
+        return false;
+    }
     valeurs[*nbValeurs] = nouvelleValeur;
     (*nbValeurs)++;
+    return true;
 }
 
 //----------------------------------------------------------------------------------//
@@ -21,14 +26,15 @@ void insererValeur(int valeurs[], int* nbValeurs, int nouvelleValeur)
 //                          int* nbValeurs (pointeur afin de compter le nombre de fois qu'un valeur est sortie)
 // Description: Fonction permettant de supprimer la dernière valeur introduite dans le fichier loto
 // Date modfification: le 01.06.26
-// Remarque: -
+// Remarque: Retourne true si succes, false si le tableau est vide
 //----------------------------------------------------------------------------------//
-void supprimerDerniereValeur(int valeurs[], int* nbValeurs)
+bool supprimerDerniereValeur(int valeurs[], int* nbValeurs)
 {
-    if (*nbValeurs > 0) //vérification que la valeur a déjà été tirée
-    {
-        (*nbValeurs)--;
+    if (*nbValeurs <= 0) {
+        return false;
     }
+    (*nbValeurs)--;
+    return true;
 }
 
 //----------------------------------------------------------------------------------//
@@ -38,14 +44,15 @@ void supprimerDerniereValeur(int valeurs[], int* nbValeurs)
 //                          int nouvelleValeur (Valeur que l'on veut inscrire dans le fichier)
 // Description: Fonction permettant de remplacer la dernière valeur introduite avec la nouvelle valeur
 // Date modfification: le 01.06.26
-// Remarque: -
+// Remarque: Retourne true si succes, false si le tableau est vide
 //----------------------------------------------------------------------------------//
-void modifierDerniereValeur(int valeurs[], int nbValeurs, int nouvelleValeur)
+bool modifierDerniereValeur(int valeurs[], int nbValeurs, int nouvelleValeur)
 {
-    if (nbValeurs > 0) //vérification que la valeur a déjà été tirée
-    {
-        valeurs[nbValeurs - 1] = nouvelleValeur; //remplacement de la valeur dans le tableau
+    if (nbValeurs <= 0) {
+        return false;
     }
+    valeurs[nbValeurs - 1] = nouvelleValeur; //remplacement de la valeur dans le tableau
+    return true;
 }
 
 //----------------------------------------------------------------------------------//

@@ -1,4 +1,7 @@
-#pragma once
+#ifndef GESTION_VALEUR_LOTO_GAGNANTE_H
+#define GESTION_VALEUR_LOTO_GAGNANTE_H
+
+#include <stdbool.h>
 
 #define MAX_NOM_LOTO 50
 #define MAX_VALEURS 100
@@ -16,13 +19,13 @@ typedef struct {
 } Loto;
 
 // Insertion d'un nouveau tirage
-void insererValeur(int valeurs[], int* nbValeurs, int nouvelleValeur);
+bool insererValeur(int valeurs[], int* nbValeurs, int nouvelleValeur);
 
 // Suppression de la derni�re valeur saisie
-void supprimerDerniereValeur(int valeurs[], int* nbValeurs);
+bool supprimerDerniereValeur(int valeurs[], int* nbValeurs);
 
 // Modification de la derni�re valeur saisie
-void modifierDerniereValeur(int valeurs[], int nbValeurs, int nouvelleValeur);
+bool modifierDerniereValeur(int valeurs[], int nbValeurs, int nouvelleValeur);
 
 // Recherche de la valeur la plus gagnante
 int rechercherValeurPlusGagnante(int valeurs[], int nbValeurs);
@@ -32,4 +35,6 @@ int rechercherValeurMoinsGagnante(int valeurs[], int nbValeurs);
 
 // Nombre d'occurrences d'une valeur
 int compterOccurrences(int valeurs[], int nbValeurs, int valeur);
+
+#endif /* GESTION_VALEUR_LOTO_GAGNANTE_H */
 

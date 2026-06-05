@@ -31,12 +31,10 @@ int File_select(int move_over, char meme[100][256], int file_count, Loto* loto);
 // meme, file_count same as past function
 // Tb_compare saves the values so we can compare them, gets converted before use
 
-void Saisie_nouveau_loto(void);
+void saisie_nouveau_loto(void);
 void viderBuffer(void);
 void sauvegarderFichierLoto(Loto* loto, const char* nomFichier);
-void Saisie_nouveau_loto(void);
 void menu_principal(Loto* loto, const char* nomFichierActuel);
-
 int main(void)
 {
     char meme[100][256];    // Array to store up to 100 filenames of max length 255
@@ -77,7 +75,7 @@ int main(void)
         }
         else
         {
-            Saisie_nouveau_loto();
+            saisie_nouveau_loto();
             printf("\nFichier de configuration cree avec succes.\n");
             // La boucle recommence et Dir_scan_txt trouvera le nouveau fichier
         }
@@ -163,6 +161,7 @@ int File_select(int move_over, char meme[100][256], int file_count, Loto* loto)
     {
         printf("You selected: %s\n", meme[userAnswer - 1]);
         strncpy(loto->nom, meme[userAnswer - 1], MAX_NOM_LOTO - 1);
+        loto->nom[MAX_NOM_LOTO - 1] = '\0'; // Ensure null termination
     }
     else
     {
@@ -170,10 +169,8 @@ int File_select(int move_over, char meme[100][256], int file_count, Loto* loto)
         return 0;
     }
 
-    // Setup to read files
+    // Setup to read files — read one value at a time now
     char Text1[40];
-    char Text2[40];
-    char Text3[40];
 
     // Pointing to the file destonation
     pointer = fopen(meme[userAnswer - 1], "r");
@@ -189,18 +186,16 @@ int File_select(int move_over, char meme[100][256], int file_count, Loto* loto)
     printf("Values are: \n");
     loto->nbValeurs = 0;
     // Basic print of all file values
-    while (fscanf(pointer, "%s%s%s", Text1, Text2, Text3) == 3 && loto->nbValeurs < MAX_VALEURS - 3) // the scan f returns  what it reads we can check that it reads 3 char, but the real problem is the end it reads 2 but it tryes to read if over and over.
-        // But fscanf return EOF if there was a problem in returning 
+    // Read values one by one to avoid losing data when count is not a multiple of 3
+    while (loto->nbValeurs < MAX_VALEURS && fscanf(pointer, "%39s", Text1) == 1)
     {
         // prints the values found
-        printf("%s, %s, %s, ", Text1, Text2, Text3);
+        printf("%s, ", Text1);
         // Now I need to store all the numbers to then compare them
 
         loto->valeurs[loto->nbValeurs++] = atoi(Text1); // atoi converts a string to an integer. https://cplusplus.com/reference/cstdlib/atoi/
-        loto->valeurs[loto->nbValeurs++] = atoi(Text2);
-        loto->valeurs[loto->nbValeurs++] = atoi(Text3);
 
-        move_over += 3; // move over 3 to store the next 3 values in the next 3 spaces of the array
+        move_over += 1; // move over 1 to store the next value in the next space of the array
     }
     printf("\n");
 
@@ -238,7 +233,7 @@ void viderBuffer(void) {
     while ((c = getchar()) != '\n' && c != EOF);
 }
 
-void Saisie_nouveau_loto(void)
+void saisie_nouveau_loto(void)
 {
     Loto nouveauLoto = { 0 };
     char nomFichier[256];
@@ -246,7 +241,7 @@ void Saisie_nouveau_loto(void)
 
     printf("\n--- CREATION D'UN NOUVEAU LOTO ---\n");
     printf("Nom du loto : ");
-    scanf("%s", nouveauLoto.nom);
+    scanf("%49s", nouveauLoto.nom);
     viderBuffer();
 
     printf("Plage de valeur (min) : ");
@@ -294,7 +289,7 @@ void Saisie_nouveau_loto(void)
 
 void menu_principal(Loto* loto, const char* nomFichierActuel)
 {
-    int choix;
+    int choix = 0;
     int valeur;
 
     do {
@@ -315,17 +310,25 @@ void menu_principal(Loto* loto, const char* nomFichierActuel)
             case 1:
                 printf("Valeur a inserer : ");
                 scanf("%d", &valeur);
-                insererValeur(loto->valeurs, &loto->nbValeurs, valeur);
-                printf("Valeur inseree !\n");
+                if (!insererValeur(loto->valeurs, &loto->nbValeurs, valeur)) {
+                    printf("Erreur : tableau plein, impossible d'insérer.\n");
+                } else {
+                    printf("Valeur inseree !\n");
+                }
                 break;
             case 2:
                 printf("Nouvelle valeur pour remplacer la derniere : ");
                 scanf("%d", &valeur);
-                modifierDerniereValeur(loto->valeurs, loto->nbValeurs, valeur);
+                if (!modifierDerniereValeur(loto->valeurs, loto->nbValeurs, valeur)) {
+                    printf("Erreur : aucune valeur a modifier.\n");
+                }
                 break;
             case 3:
-                supprimerDerniereValeur(loto->valeurs, &loto->nbValeurs);
-                printf("Derniere valeur supprimee.\n");
+                if (!supprimerDerniereValeur(loto->valeurs, &loto->nbValeurs)) {
+                    printf("Erreur : aucune valeur a supprimer.\n");
+                } else {
+                    printf("Derniere valeur supprimee.\n");
+                }
                 break;
             case 4:
                 if (loto->nbValeurs > 0) {
