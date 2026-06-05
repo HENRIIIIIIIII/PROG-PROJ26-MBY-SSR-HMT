@@ -218,7 +218,7 @@ int File_select(int move_over, char meme[100][256], int file_count, int Tb_compa
     int Meme_val[255];
 
     // Pointing to the file destonation
-    pointer = fopen(meme[UserAnswer], "r");
+    pointer = fopen(meme[UserAnswer - 1], "r");
 
     // file check
     if (pointer == NULL)
