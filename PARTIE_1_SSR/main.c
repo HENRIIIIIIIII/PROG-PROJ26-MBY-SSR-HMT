@@ -22,7 +22,7 @@ int Dir_scan_txt(int file_count, char meme[100][256]);
 // meme memorizes the name of the file
 // This function gives back how many files are in the directory
 
-int File_select(int move_over, char meme[100][256], int file_count, int Tb_compare[100]);
+int File_select(int move_over, char meme[100][256], int file_count, Loto* loto);
 // This function reads what the user selected and shows what values are in the file
 // move_over is because we read the values by 3 so it's to take that into consideration
 // meme, file_count same as past function
@@ -108,14 +108,12 @@ int main(void)
 
         if (file_count > 0)
         {
-            int move_over = File_select(0, meme, file_count, Tb_compare);
+            int move_over = File_select(0, meme, file_count, &monLoto);
 
             if (move_over > 0)
             {
-                strcpy(nomFichierLotoActuel, "lotoTmp.txt"); 
-                
-                chargerDonneesLoto(&monLoto, Tb_compare, move_over, nomFichierLotoActuel);
-                
+                strcpy(nomFichierLotoActuel, monLoto.nom);
+                                
                 printf("\n--- CONFIGURATION DU LOTO CHARGÉ ---\n");
                 printf("Nom : %s | Saisies enregistrees : %d\n", monLoto.nom, monLoto.nbValeurs);
 
@@ -225,9 +223,9 @@ int Dir_scan_txt(int file_count, char meme[100][256])
 // Date modfification: 03.06.26
 // Remarque: -
 //----------------------------------------------------------------------------------//
-int File_select(int move_over, char meme[100][256], int file_count, int Tb_compare[100])
+int File_select(int move_over, char meme[100][256], int file_count, Loto* loto)
 {
-    int UserAnswer; // were the users values are saved
+    int userAnswer; // were the users values are saved
 
     // if there are no files found
     if (file_count == 0)
@@ -238,13 +236,13 @@ int File_select(int move_over, char meme[100][256], int file_count, int Tb_compa
 
     // prints number of files found and ask user witch file to read
     printf("\nSelect a file number (1-%d): ", file_count);
-    scanf("%d", &UserAnswer);
+    scanf("%d", &userAnswer);
 
     // Validate the user input "supid proof"
-    if (UserAnswer > 0 && UserAnswer <= file_count)
+    if (userAnswer > 0 && userAnswer <= file_count)
     {
-        printf("You selected: %s\n", meme[UserAnswer - 1]);
-        // Open and read your file here using meme[choice - 1]
+        printf("You selected: %s\n", meme[userAnswer - 1]);
+        strncpy(loto->nom, meme[userAnswer - 1], MAX_NOM_LOTO - 1);
     }
     else
     {
@@ -256,10 +254,9 @@ int File_select(int move_over, char meme[100][256], int file_count, int Tb_compa
     char Text1[40];
     char Text2[40];
     char Text3[40];
-    int Meme_val[255];
 
     // Pointing to the file destonation
-    pointer = fopen(meme[UserAnswer - 1], "r");
+    pointer = fopen(meme[userAnswer - 1], "r");
 
     // file check
     if (pointer == NULL)
@@ -270,18 +267,18 @@ int File_select(int move_over, char meme[100][256], int file_count, int Tb_compa
     printf("Successfull\n");
 
     printf("Values are: \n");
+    loto->nbValeurs = 0;
     // Basic print of all file values
-    while (fscanf(pointer, "%s%s%s", Text1, Text2, Text3) == 3) // the scan f returns  what it reads we can check that it reads 3 char, but the real problem is the end it reads 2 but it tryes to read if over and over.
+    while (fscanf(pointer, "%s%s%s", Text1, Text2, Text3) == 3 && loto->nbValeurs < MAX_VALEURS - 3) // the scan f returns  what it reads we can check that it reads 3 char, but the real problem is the end it reads 2 but it tryes to read if over and over.
         // But fscanf return EOF if there was a problem in returning 
     {
         // prints the values found
         printf("%s, %s, %s, ", Text1, Text2, Text3);
         // Now I need to store all the numbers to then compare them
 
-        Tb_compare[move_over] = atoi(Text1); // atoi converts a string to an integer. https://cplusplus.com/reference/cstdlib/atoi/
-        Tb_compare[move_over + 1] = atoi(Text2);
-        Tb_compare[move_over + 2] = atoi(Text3);
-
+        loto->valeurs[loto->nbValeurs++] = atoi(Text1); // atoi converts a string to an integer. https://cplusplus.com/reference/cstdlib/atoi/
+        loto->valeurs[loto->nbValeurs++] = atoi(Text2);
+        loto->valeurs[loto->nbValeurs++] = atoi(Text3);
 
         move_over += 3; // move over 3 to store the next 3 values in the next 3 spaces of the array
     }
