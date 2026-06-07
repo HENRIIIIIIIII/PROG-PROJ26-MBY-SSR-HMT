@@ -6,8 +6,10 @@
 // Description: Vide le buffer d'entree standard apres un scanf pour eviter
 //              que les caracteres residuels soient relus.
 //----------------------------------------------------------------------------------//
-void viderBuffer(void) {
+void viderBuffer(void) 
+{
     int c;
+	// On lit et ignore tous les caracteres jusqu'au prochain saut de ligne ou EOF
     while ((c = getchar()) != '\n' && c != EOF);
 }
 
@@ -16,8 +18,12 @@ void viderBuffer(void) {
 // Description: Lit un entier au clavier avec validation du retour scanf.
 //              Boucle tant que le retour n'est pas 1 (saisie valide).
 //----------------------------------------------------------------------------------//
-int lireEntier(int *p) {
-    while (scanf(FORMAT_SCANF_INT, p) != 1) {
+int lireEntier(int *p) 
+{
+	// On utilise une boucle pour valider la saisie de l'utilisateur
+    while (scanf(FORMAT_SCANF_INT, p) != 1) 
+    {
+		// Si scanf ne retourne pas 1, cela signifie que la saisie n'est pas un entier valide
         viderBuffer();
         printf(ERR_SAISIE_INT);
     }
