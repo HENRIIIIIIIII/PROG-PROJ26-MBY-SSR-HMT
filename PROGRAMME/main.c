@@ -91,7 +91,7 @@ int main(void)
             // L'utilisateur selectionne un fichier a lire
             int move_over = selectionnerFichier(0, meme, file_count, &monLoto);
 
-            if (move_over > 0)
+            if (move_over >= 0)
             {
                 // Copie du nom du loto saisi dans le nom du fichier
                 strcpy(nomFichierLotoActuel, monLoto.nom);
@@ -188,7 +188,7 @@ int selectionnerFichier(int move_over, char meme[MAX_FICHIERS][TAILLE_MAX_FICHIE
     if (file_count == 0)
     {
         printf(ERR_NO_TXT);
-        return 0;
+        return -1;
     }
 
     // Affichage du menu de selection et lecture du choix utilisateur
@@ -206,7 +206,7 @@ int selectionnerFichier(int move_over, char meme[MAX_FICHIERS][TAILLE_MAX_FICHIE
     else
     {
         printf(ERR_INVALID_SELEC);
-        return 0;
+        return -1;
     }
 
     // Buffer temporaire pour la lecture de chaque valeur texte
@@ -219,7 +219,7 @@ int selectionnerFichier(int move_over, char meme[MAX_FICHIERS][TAILLE_MAX_FICHIE
     if (pointer == NULL)
     {
         printf(ERR_FILE_OPEN);
-        return 0;
+        return -1;
     }
 
     printf(MSG_VALUES_AFFICHEES);
