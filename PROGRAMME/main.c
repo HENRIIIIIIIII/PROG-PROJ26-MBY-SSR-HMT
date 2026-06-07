@@ -16,6 +16,8 @@
 //                        avoir des erreurs d'interprétation
 // 						  -> http://fr.openclassrooms.com/informatique/cours/utiliser-les-bonnes-fonctions-d-entree
 //----------------------------------------------------------------------------------//
+// Directives de compilation
+#define _CRT_SECURE_NO_WARNINGS
 
 #include <stdio.h>
 #include <stdbool.h>
