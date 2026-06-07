@@ -258,6 +258,7 @@ void trierFichier(Loto* loto)
                 Tb_compare[1][i] = Nb_repeated;
             }
         }
+        // incrementations 
         count++;
     }
 

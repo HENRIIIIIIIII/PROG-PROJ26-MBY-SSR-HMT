@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns:nsd="https://structorizer.fisch.lu" version="3.32-35" preRepeat="until " postFor="to" preReturn="return" postForIn="in" preWhile="while " output="OUTPUT" input="INPUT" preFor="for" preExit="exit" preLeave="leave" ignoreCase="true" preThrow="throw" preForIn="foreach" stepFor="by" namespace="" author="henmott" created="2026-05-18" changedby="fishe" changed="2026-06-07" origin="Structorizer 3.30-10" text="&#34;//----------------------------------------------------------------------------------//&#34;,&#34;// Nom de la fonction: trierFichier&#34;,&#34;// Entree / Sortie / I/O :  Loto* loto structure contenant les valeurs a trier&#34;,&#34;// Description: Calcule la frequence d'apparition de chaque valeur unique,&#34;,&#34;//              puis affiche le resultat trie par frequence decroissante via&#34;,&#34;//              un algorithme de Tri a Bulles (Bubble Sort).&#34;,&#34;// Date de modification: 03.06.26&#34;,&#34;// Remarque: Utilise un tableau 2D Tb_compare[2][MAX_SCAN] :&#34;,&#34;//           - ligne 0 : les valeurs uniques&#34;,&#34;//           - ligne 1 : le nombre d'occurrences de chaque valeur&#34;,&#34;//----------------------------------------------------------------------------------//&#34;" comment="" color="ffffff" type="program" style="nice">
+	<children>
+		<instruction text="&#34;Declaration de tableux Tb_compare[2][MAX_SCAN]&#34;" comment="&#34;Tableau 2D pour le comptage des frequences :&#34;,&#34;Tb_compare[0][i] contient la valeur i (de 0 a MAX_SCAN-1)&#34;,&#34;Tb_compare[1][i] contient le nombre de fois ou cette valeur apparait&#34;" color="ffffff" rotated="0" disabled="0"></instruction>
+		<for text="&#34;for (int i = 0; i &#60; MAX_SCAN; i++)&#34;" comment="&#34;Initialisation : on remplit la premiere ligne avec les indices 0, 1, 2, ..., MAX_SCAN-1&#34;,&#34;Cela permet de couvrir toutes les valeurs possibles dans la plage du loto&#34;" counterVar="dummy_counter" startValue="(int i = 0; i &#60; MAX_SCAN; i++)" stepConst="1" style="FREETEXT" color="ffffff" disabled="0">
+			<qFor>
+				<instruction text="&#34;Initialisation : on remplit la premiere ligne avec les indices 0, 1, 2, ..., MAX_SCAN-1&#34;" comment="" color="ffffff" rotated="0" disabled="0"></instruction>
+			</qFor>
+		</for>
+		<while text="&#34;while (count != loto-&#62;nbValeurs)&#34;" comment="&#34;Algorithme de comptage des frequences :&#34;,&#34;Pour chaque valeur du loto, on parcourt le tableau de comparaison&#34;,&#34;et on incrémente le compteur correspondant a cette valeur&#34;" color="ffffff" disabled="0">
+			<qWhile>
+				<for text="&#34;for (int i = 0; i &#60; MAX_SCAN; i++)&#34;" comment="" counterVar="dummy_counter" startValue="(int i = 0; i &#60; MAX_SCAN; i++)" stepConst="1" style="FREETEXT" color="ffffff" disabled="0">
+					<qFor>
+						<instruction text="&#34;Nb_repeated stocke le compteur actuel pour la valeur Tb_compare[0][i]&#34;" comment="" color="ffffff" rotated="0" disabled="0"></instruction>
+						<alternative text="&#34; if (Tb_compare[0][i] == loto-&#62;valeurs[count])&#34;" comment="" color="ffffff" branch_colors="," disabled="0">
+							<qTrue>
+								<instruction text="&#34;Recuperation du compteur actuel&#34;,&#34;Incrémentation du compteur (une occurrence de plus)&#34;,&#34;Sauvegarde du nouveau compteur&#34;" comment="" color="ffffff" rotated="0" disabled="0"></instruction>
+							</qTrue>
+							<qFalse>
+								<instruction text="" comment="" color="ffffff" rotated="0" disabled="0"></instruction>
+							</qFalse>
+						</alternative>
+					</qFor>
+				</for>
+				<instruction text="&#34;incrementations de count&#34;" comment="" color="ffffff" rotated="0" disabled="0"></instruction>
+			</qWhile>
+		</while>
+		<for text="&#34;for (int i = 0; i &#60; MAX_SCAN - 1; i++)&#34;" comment="&#34;Tri a Bulles (Bubble Sort) sur les frequences (ligne 1) :&#34;,&#34;Parcours le tableau en comparant chaque paire d'elements adjacents.&#34;,&#34;Si la frequence courante est inferieure a la suivante, on inverse les deux lignes&#34;,&#34;(a la fois la valeur ET son compteur) pour faire remonter les plus frequentes.&#34;" counterVar="dummy_counter" startValue="(int i = 0; i &#60; MAX_SCAN - 1; i++)" stepConst="1" style="FREETEXT" color="ffffff" disabled="0">
+			<qFor>
+				<for text="&#34;for (int j = 0; j &#60; MAX_SCAN - i - 1; j++)&#34;" comment="" counterVar="dummy_counter" startValue="(int j = 0; j &#60; MAX_SCAN - i - 1; j++)" stepConst="1" style="FREETEXT" color="ffffff" disabled="0">
+					<qFor>
+						<alternative text="&#34;if (Tb_compare[1][j] &#60; Tb_compare[1][j + 1])&#34;" comment="&#34;Si la frequence en j est inferieure a celle en j+1, on inverse&#34;" color="ffffff" branch_colors="," disabled="0">
+							<qTrue>
+								<instruction text="&#34;Echange des fréquences et la valeur associees&#34;,&#34;la valeur de répétition et la valeur est mise dans la case plus haute&#34;" comment="" color="ffffff" rotated="0" disabled="0"></instruction>
+							</qTrue>
+							<qFalse>
+								<instruction text="" comment="" color="ffffff" rotated="0" disabled="0"></instruction>
+							</qFalse>
+						</alternative>
+					</qFor>
+				</for>
+			</qFor>
+		</for>
+		<for text="&#34; for (int i = 0; i &#60; MAX_SCAN; i++)&#34;" comment="&#34;Affichage de toutes les valeurs avec leur frequence (triee par frequence decroissante)&#34;" counterVar="dummy_counter" startValue="(int i = 0; i &#60; MAX_SCAN; i++)" stepConst="1" style="FREETEXT" color="ffffff" disabled="0">
+			<qFor>
+				<alternative text="&#34;if (Tb_compare[1][i] != 0)&#34;" comment="" color="ffffff" branch_colors="," disabled="0">
+					<qTrue>
+						<call text="&#34;affiche des valeurs&#34;" comment="" color="ff80c0" disabled="0" ismethoddecl="0"></call>
+					</qTrue>
+					<qFalse>
+						<instruction text="" comment="" color="ffffff" rotated="0" disabled="0"></instruction>
+					</qFalse>
+				</alternative>
+			</qFor>
+		</for>
+		<for text="&#34;for (int i = 0; i &#60; 6; i++)&#34;" comment="&#34;Affichage du top 6 des valeurs les plus frequentes&#34;" counterVar="dummy_counter" startValue="(int i = 0; i &#60; 6; i++)" stepConst="1" style="FREETEXT" color="ffffff" disabled="0">
+			<qFor>
+				<alternative text="&#34;if (Tb_compare[1][i] != 0)&#34;" comment="" color="ffffff" branch_colors="," disabled="0">
+					<qTrue>
+						<call text="&#34;affiche des valeurs&#34;" comment="" color="ff80c0" disabled="0" ismethoddecl="0"></call>
+					</qTrue>
+					<qFalse>
+						<instruction text="" comment="" color="ffffff" rotated="0" disabled="0"></instruction>
+					</qFalse>
+				</alternative>
+			</qFor>
+		</for>
+	</children>
+</root>
