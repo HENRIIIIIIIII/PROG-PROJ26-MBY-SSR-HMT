@@ -1,10 +1,7 @@
 #ifndef CONSTANTES_H
 #define CONSTANTES_H
 
-/* ========================================================================== */
-/* TAILLES ET LIMITES                                                           */
-/* ========================================================================== */
-
+// TAILLES ET LIMITES
 #define MAX_NOM_LOTO            50     /* Longueur max du nom d'un loto                    */
 #define MAX_VALEURS             100    /* Nombre maximum de valeurs stockables             */
 #define MAX_FICHIERS            100    /* Nombre maximum de fichiers .txt detectables      */
@@ -13,16 +10,9 @@
 #define MAX_SCAN                100    /* Taille max du tableau de comparaison             */
 #define NUMERO_A_JOUER          6      /* Nombre de numeros a afficher dans le top/bottom  */
 
-/* ========================================================================== */
-/* BLOCS ET SEPARATEURS                                                       */
-/* ========================================================================== */
+#define BLOC_SAUVEGARDE 3 // Valeurs par ligne dans le fichier
 
-#define BLOC_SAUVEGARDE           3      /* Valeurs par ligne dans le fichier                */
-
-/* ========================================================================== */
-/* MESSAGES — BIENVENUE / INFO                                                  */
-/* ========================================================================== */
-
+// BIENVENUE / INFO
 #define MSG_BIENVENUE        "=== BIENVENUE DANS L'ANALYSEUR DE LOTO ===\n"
 #define MSG_CONFIG_TITLE     "\n--- CONFIGURATION DU LOTO CHARGE ---\n"
 #define MSG_CONFIG_INFO      "Nom : %s | Saisies enregistrees : %d\n"
@@ -31,10 +21,7 @@
 #define MSG_VALUES_AFFICHEES "Voici les valeurs lues : \n"
 #define MSG_VALEUR_LUE       "%s, "
 
-/* ========================================================================== */
-/* MESSAGES — MENU PRINCIPAL                                                    */
-/* ========================================================================== */
-
+// MENU PRINCIPAL
 #define MSG_MENU_TITRE       "\n--- MENU PRINCIPAL ---\n"
 #define MSG_MENU_1           "1. Inserer une nouvelle valeur\n"
 #define MSG_MENU_2           "2. Modifier la derniere valeur\n"
@@ -49,10 +36,7 @@
 #define MSG_MENU_VALEUR      "Valeur a inserer : "
 #define MSG_MENU_MODIF       "Nouvelle valeur pour remplacer la derniere : "
 
-/* ========================================================================== */
-/* MESSAGES — CREATION NOUVEAU LOTO                                             */
-/* ========================================================================== */
-
+// CREATION NOUVEAU LOTO
 #define MSG_CREAT_TITRE      "\n--- CREATION D'UN NOUVEAU LOTO ---\n"
 #define MSG_CREAT_NOM        "Nom du loto : "
 #define MSG_CREAT_MIN        "Plage de valeur (min) : "
@@ -64,10 +48,7 @@
 #define MSG_CREAT_SIMUNB     "Combien de tirages a generer ? : "
 #define MSG_CREAT_PREFIX     "log%s.txt"
 
-/* ========================================================================== */
-/* MESSAGES — ERREURS                                                           */
-/* ========================================================================== */
-
+// ERREURS
 #define ERR_DIR_OPEN         "Impossible d'ouvrir le repertoire courant"
 #define ERR_NO_TXT           "Aucun fichier .txt trouve.\n"
 #define ERR_INVALID_SELEC    "Selection invalide.\n"
@@ -86,21 +67,15 @@
 #define MSG_SAUV_INCO        "Sauvegarde en cours...\n"
 #define MSG_FICHIER_MAJ      "Fichier %s mis à jour avec succès.\n"
 
-/* ========================================================================== */
-/* MESSAGES — AFFICHAGE STATISTIQUES                                            */
-/* ========================================================================== */
-
+// AFFICHAGE STATISTIQUES
 #define MSG_VAL_PLUS_GAG     "\nValeur la plus gagnante : %d (%d occurrences)\n"
 #define MSG_VAL_MOINS_GAG    "\nValeur la moins gagnante : %d (%d occurrences)\n"
 #define MSG_6_MEILLEURS      "\n6 meilleurs numeros : "
 #define MSG_6_MOINS_BONS     "\n6 moins bons numeros : "
-#define MSG_FILE_SORT_VAL    "valeur %d dans le tableau répétée : %d fois\n"
+#define MSG_FILE_SORT_VAL    "numéro %d de tirage présent : %d fois\n"
 #define MSG_FILE_SORT_TOP    "Les 6 meilleurs numéros à jouer :\n"
 
-/* ========================================================================== */
-/* CHAINES — EXTENSIONS / MODELES                                               */
-/* ========================================================================== */
-
+// CHAINES
 #define EXT_TXT              ".txt"
 #define FORMAT_INT           "%d "
 #define FORMAT_SCANF_INT     "%d"

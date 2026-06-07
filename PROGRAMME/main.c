@@ -1,3 +1,22 @@
+//-----------------------------------------------------------------------------------//
+// Nom du projet 		: Projet_LOTO
+// Nom du fichier 		: main.c
+// Date de création 	: 18.05.26
+// Date de modification : 07.06.26
+//
+// Auteurs 				: MBY / SSR / HMT
+//
+// Version				: 1.0
+//
+// Description          : 
+//
+// Remarques :            lien pour la table ASCII :
+// 						  -> http://www.asciitable.com/
+// 						  lien pour la saisie de clavier avec getc & getchar pour ne pas
+//                        avoir des erreurs d'interprétation
+// 						  -> http://fr.openclassrooms.com/informatique/cours/utiliser-les-bonnes-fonctions-d-entree
+//----------------------------------------------------------------------------------//
+
 #if defined(_MSC_VER)
     // Nécessaire pour compiler sous Windows
     #define _CRT_SECURE_NO_WARNINGS
@@ -20,11 +39,22 @@
 #include "GestionAffichage.h"
 #include "GestionValeurlotoGagnante.h"
 
+// Scanne le repertoire courant et retourne le nombre de fichiers .txt
 int scannerRepertoireTxt(int file_count, char meme[MAX_FICHIERS][TAILLE_MAX_FICHIER]);
+
+// Affiche la liste des fichiers, lit le choix de l'utilisateur, ouvre le fichier selectionne et lit les valeurs numeriques une par une.
 int selectionnerFichier(int move_over, char meme[MAX_FICHIERS][TAILLE_MAX_FICHIER], int file_count, Loto* loto);
+
+// Guide l'utilisateur pour creer un nouveau loto (nom, plages, simulation) puis sauvegarde les donnees dans un fichier txt.
 void saisirNouveauLoto(void);
+
+// Vide le buffer d'entree standard apres un scanf pour eviter que les caracteres residuels soient relus.
 void viderBuffer(void);
+
+// Ecrit les valeurs du loto dans un fichier texte
 void sauvegarderFichierLoto(Loto* loto, const char* nomFichier);
+
+// Affiche le menu principal interactif et execute l'action choisie.
 void menuPrincipal(Loto* loto, const char* nomFichierActuel);
 
 int main(void)
@@ -38,6 +68,7 @@ int main(void)
 
     Loto monLoto = { 0 };
     char nomFichierLotoActuel[TAILLE_MAX_FICHIER] = "";
+    char reponse;
 
     printf(MSG_BIENVENUE);
 
@@ -48,11 +79,21 @@ int main(void)
 
         if (file_count > 0)
         {
+            printf("Loto déjà existants ! Voulez-vous en créer un nouveau ?");
+            scanf(FORMAT_SCANF_CHAR, &reponse);
+            viderBuffer();
+            if (reponse == 'o' || reponse == 'O') {
+                saisirNouveauLoto();
+                printf(MSG_FICHIER_CREE);
+                continue;
+                // La boucle recommence et trouvera le nouveau fichier
+            }
             // L'utilisateur selectionne un fichier a lire
             int move_over = selectionnerFichier(0, meme, file_count, &monLoto);
 
             if (move_over > 0)
             {
+                // Copie du nom du loto saisi dans le nom du fichier
                 strcpy(nomFichierLotoActuel, monLoto.nom);
 
                 printf(MSG_CONFIG_TITLE);
@@ -68,12 +109,14 @@ int main(void)
                 printf(ERR_OUVERTURE);
                 break;
             }
+
         }
         else
         {
             // Aucun fichier trouve : on cree un nouveau loto
             saisirNouveauLoto();
             printf(MSG_FICHIER_CREE);
+            continue;
             // La boucle recommence et trouvera le nouveau fichier
         }
     }
@@ -151,6 +194,7 @@ int selectionnerFichier(int move_over, char meme[MAX_FICHIERS][TAILLE_MAX_FICHIE
     // Affichage du menu de selection et lecture du choix utilisateur
     printf(MSG_SELECT, file_count);
     scanf(FORMAT_SCANF_PTR, &userAnswer);
+    viderBuffer();
 
     // Validation de l'entree utilisateur (entre 1 et file_count)
     if (userAnswer > 0 && userAnswer <= file_count)
@@ -177,14 +221,12 @@ int selectionnerFichier(int move_over, char meme[MAX_FICHIERS][TAILLE_MAX_FICHIE
         printf(ERR_FILE_OPEN);
         return 0;
     }
-    printf(MSG_SUCCESS_FICHIER);
 
     printf(MSG_VALUES_AFFICHEES);
     loto->nbValeurs = 0;
 
     // Lecture valeur par valeur depuis le fichier
     // La boucle s'arrete quand on atteint MAX_VALEURS ou la fin du fichier (EOF)
-    // FORMAT_SCANF_STR39 limite la lecture a 39 caracteres pour eviter les depassements
     while (loto->nbValeurs < MAX_VALEURS && fscanf(pointer, FORMAT_SCANF_STR39, Text1) == 1)
     {
         printf(MSG_VALEUR_LUE, Text1);
@@ -203,18 +245,19 @@ int selectionnerFichier(int move_over, char meme[MAX_FICHIERS][TAILLE_MAX_FICHIE
 // Nom de la fonction: sauvegarderFichierLoto
 // Entree / Sortie / I/O :  Loto* loto structure contenant les donnees a sauvegarder
 //                          const char* nomFichier nom du fichier de sortie
-// Description: Ecrit les valeurs du loto dans un fichier texte, une valeur par ligne
-//              avec un saut de ligne tous les BLOC_SAUVEGARDE (3) valeurs.
+// Description: Ecrit les valeurs du loto dans un fichier texte
 //----------------------------------------------------------------------------------//
 void sauvegarderFichierLoto(Loto* loto, const char* nomFichier)
 {
+    // Ouverture du fichier
     FILE* fichier = fopen(nomFichier, "w");
     if (fichier == NULL) {
+        // Message d'erreur
         printf(ERR_SAUVEGARDER, nomFichier);
         return;
     }
 
-    // Ecriture des valeurs par blocs de BLOC_SAUVEGARDE
+    // Ecriture des valeurs par blocs de BLOC_SAUVEGARDE pour la lisibilité dans le fichier
     for (int i = 0; i < loto->nbValeurs; i++) {
         fprintf(fichier, FORMAT_INT, loto->valeurs[i]);
         if ((i + 1) % BLOC_SAUVEGARDE == 0) {
@@ -235,6 +278,7 @@ void sauvegarderFichierLoto(Loto* loto, const char* nomFichier)
 // Nom de la fonction: viderBuffer
 // Description: Vide le buffer d'entree standard apres un scanf pour eviter
 //              que les caracteres residuels soient relus.
+// Pour en savoir plus : https://intro2c.sdds.ca/D-Modularity/input-functions
 //----------------------------------------------------------------------------------//
 void viderBuffer(void) {
     int c;
