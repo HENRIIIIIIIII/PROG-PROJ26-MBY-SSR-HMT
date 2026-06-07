@@ -63,7 +63,10 @@
 #define ERR_CHOIX_INV        "Choix invalide.\n"
 #define ERR_AUCUNE_DATA      "Aucune donnee.\n"
 #define ERR_OUVERTURE        "Erreur lors de l'ouverture ou fichier vide.\n"
-#define MSG_SELECT           "Sélectionnez un numéro de fichier (1/%d) : "
+#define ERR_SAISIE_INT       "Erreur de saisie. Veuillez entrer un nombre entier valide : \n"
+#define ERR_SAISIE_CHAR      "Erreur de saisie. Veuillez entrer un caractere valide : \n"
+#define ERR_SAISIE_STR       "Erreur de saisie. Veuillez entrer une chaine valide : \n"
+#define MSG_SELECT           "Selectionnez un numero de fichier (1/%d) : "
 #define MSG_SELECTED         "Vous avez sélectionné : %s\n"
 #define MSG_VALEUR_INSER     "Valeur insérée\n"
 #define MSG_SUPPRIME         "Dernière valeur supprimée.\n"
@@ -86,7 +89,6 @@
 #define FORMAT_SCANF_STR49   "%49s"
 #define FORMAT_SCANF_STR39   "%39s"
 #define FORMAT_SCANF_CHAR    "%c"
-#define FORMAT_SCANF_PTR     "%d"
 #define NEWLINE_FICHIER      "\n"
 #define REPONSE_OUI_MIN      'o'
 #define REPONSE_OUI_MAJ      'O'

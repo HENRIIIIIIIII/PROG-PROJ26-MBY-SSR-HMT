@@ -30,12 +30,10 @@
 #include "GestionAffichage.h"
 #include "GestionValeurlotoGagnante.h"
 #include "GestionFichiersLoto.h"
+#include "GestionSaisie.h"
 
 // Guide l'utilisateur pour creer un nouveau loto (nom, plages, simulation) puis sauvegarde les donnees dans un fichier txt.
 void saisirNouveauLoto(void);
-
-// Vide le buffer d'entree standard apres un scanf pour eviter que les caracteres residuels soient relus.
-void viderBuffer(void);
 
 // Affiche le menu principal interactif et execute l'action choisie.
 void menuPrincipal(Loto* loto, const char* nomFichierActuel);
@@ -63,8 +61,8 @@ int main(void)
         if (file_count > 0)
         {
             printf(MSG_LOTO_EXISTANT);
-            scanf(FORMAT_SCANF_CHAR, &reponse);
-            viderBuffer();
+            lireCaractere(&reponse);
+            
             if (reponse == REPONSE_OUI_MIN || reponse == REPONSE_OUI_MAJ) {
                 saisirNouveauLoto();
                 printf(MSG_FICHIER_CREE);
@@ -85,9 +83,7 @@ int main(void)
 
                 // Affichage des 6 meilleurs numeros au chargement
                 if (monLoto.nbValeurs > 0)
-                {
                     afficher6MeilleursNumeros(monLoto.valeurs, monLoto.nbValeurs);
-                }
 
                 menuPrincipal(&monLoto, nomFichierLotoActuel);
 
@@ -114,17 +110,6 @@ int main(void)
 }
 
 //----------------------------------------------------------------------------------//
-// Nom de la fonction: viderBuffer
-// Description: Vide le buffer d'entree standard apres un scanf pour eviter
-//              que les caracteres residuels soient relus.
-// Pour en savoir plus : https://intro2c.sdds.ca/D-Modularity/input-functions
-//----------------------------------------------------------------------------------//
-void viderBuffer(void) {
-    int c;
-    while ((c = getchar()) != '\n' && c != EOF);
-}
-
-//----------------------------------------------------------------------------------//
 // Nom de la fonction: saisirNouveauLoto
 // Description: Guide l'utilisateur pour creer un nouveau loto (nom, plages, simulation)
 //              puis sauvegarde les donnees dans un fichier txt.
@@ -137,41 +122,33 @@ void saisirNouveauLoto(void)
 
     printf(MSG_CREAT_TITRE);
     printf(MSG_CREAT_NOM);
-    scanf(FORMAT_SCANF_STR49, nouveauLoto.nom);
-    viderBuffer();
+    lireChaine(nouveauLoto.nom, TAILLE_MAX_FICHIER);
 
     printf(MSG_CREAT_MIN);
-    scanf(FORMAT_SCANF_INT, &nouveauLoto.minVal);
-    viderBuffer();
+    lireEntier(&nouveauLoto.minVal);
 
     printf(MSG_CREAT_MAX);
-    scanf(FORMAT_SCANF_INT, &nouveauLoto.maxVal);
-    viderBuffer();
+    lireEntier(&nouveauLoto.maxVal);
 
     printf(MSG_CREAT_COMP);
-    scanf(FORMAT_SCANF_CHAR, &reponse);
-    viderBuffer();
+    lireCaractere(&reponse);
 
     if (reponse == REPONSE_OUI_MIN || reponse == REPONSE_OUI_MAJ) {
         nouveauLoto.nbComplementaires = 1;
         printf(MSG_CREAT_MINCOMP);
-        scanf(FORMAT_SCANF_INT, &nouveauLoto.minComp);
-        viderBuffer();
+        lireEntier(&nouveauLoto.minComp);
 
         printf(MSG_CREAT_MAXCOMP);
-        scanf(FORMAT_SCANF_INT, &nouveauLoto.maxComp);
-        viderBuffer();
+        lireEntier(&nouveauLoto.maxComp);
     }
 
     printf(MSG_CREAT_SIMU);
-    scanf(FORMAT_SCANF_CHAR, &reponse);
-    viderBuffer();
+    lireCaractere(&reponse);
 
     if (reponse == REPONSE_OUI_MIN || reponse == REPONSE_OUI_MAJ) {
         int nbSimul;
         printf(MSG_CREAT_SIMUNB);
-        scanf(FORMAT_SCANF_INT, &nbSimul);
-        viderBuffer();
+        lireEntier(&nbSimul);
 
         // Generation de valeurs aleatoires dans la plage definie par l'utilisateur
         for (int i = 0; i < nbSimul && nouveauLoto.nbValeurs < MAX_VALEURS; i++) {
@@ -217,7 +194,7 @@ void menuPrincipal(Loto* loto, const char* nomFichierActuel)
         printf(MSG_MENU_10);
         printf(MSG_MENU_CHOIX);
 
-        if (scanf(FORMAT_SCANF_PTR, &choix) != 1) {
+        if (scanf(FORMAT_SCANF_INT, &choix) != 1) {
             viderBuffer();
             continue;
         }
@@ -225,7 +202,7 @@ void menuPrincipal(Loto* loto, const char* nomFichierActuel)
         switch (choix) {
             case 1:
                 printf(MSG_MENU_VALEUR);
-                scanf(FORMAT_SCANF_INT, &valeur);
+                lireEntier(&valeur);
                 if (!insererValeur(loto->valeurs, &loto->nbValeurs, valeur)) {
                     printf(ERR_TABLEAU_PLEIN);
                 } else {
@@ -234,7 +211,7 @@ void menuPrincipal(Loto* loto, const char* nomFichierActuel)
                 break;
             case 2:
                 printf(MSG_MENU_MODIF);
-                scanf(FORMAT_SCANF_INT, &valeur);
+                lireEntier(&valeur);
                 if (!modifierDerniereValeur(loto->valeurs, loto->nbValeurs, valeur)) {
                     printf(ERR_AUCUNE_MODIF);
                 }

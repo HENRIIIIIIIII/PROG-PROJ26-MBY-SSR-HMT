@@ -10,6 +10,7 @@
 #endif
 
 #include "GestionFichiersLoto.h"
+#include "GestionSaisie.h"
 #include <string.h> // Pour strstr, strcmp, strcpy, strncpy
 #include <stdlib.h> // Pour atoi
 
@@ -117,7 +118,7 @@ int selectionnerFichier(int move_over, char meme[MAX_FICHIERS][TAILLE_MAX_FICHIE
 
     // Affichage du menu de selection et lecture du choix utilisateur
     printf(MSG_SELECT, file_count);
-    scanf(FORMAT_SCANF_PTR, &userAnswer);
+    scanf(FORMAT_SCANF_INT, &userAnswer);
 
     // Validation de l'entree utilisateur (entre 1 et file_count)
     if (userAnswer > 0 && userAnswer <= file_count)
