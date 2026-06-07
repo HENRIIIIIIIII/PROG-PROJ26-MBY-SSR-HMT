@@ -26,22 +26,28 @@ void sauvegarderFichierLoto(Loto* loto, const char* nomFichier)
 {
     // Ouverture du fichier
     FILE* fichier = fopen(nomFichier, "w");
-    if (fichier == NULL) {
+    if (fichier == NULL) 
+    {
         // Message d'erreur
         printf(ERR_SAUVEGARDER, nomFichier);
         return;
     }
 
     // Ecriture des valeurs par blocs de BLOC_SAUVEGARDE pour la lisibilité dans le fichier
-    for (int i = 0; i < loto->nbValeurs; i++) {
+    for (int i = 0; i < loto->nbValeurs; i++) 
+    {
+		// Ecriture de la valeur actuelle dans le fichier
         fprintf(fichier, FORMAT_INT, loto->valeurs[i]);
-        if ((i + 1) % BLOC_SAUVEGARDE == 0) {
+        if ((i + 1) % BLOC_SAUVEGARDE == 0) 
+        {
+			// Ajout d'un saut de ligne apres chaque bloc de valeurs pour une meilleure lisibilite
             fprintf(fichier, NEWLINE_FICHIER);
         }
     }
 
     // Si la derniere ligne n'etait pas un multiple de BLOC_SAUVEGARDE, on ajoute un saut
-    if (loto->nbValeurs % BLOC_SAUVEGARDE != 0) {
+    if (loto->nbValeurs % BLOC_SAUVEGARDE != 0) 
+    {
         fprintf(fichier, NEWLINE_FICHIER);
     }
 

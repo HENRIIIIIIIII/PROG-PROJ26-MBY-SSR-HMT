@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns:nsd="https://structorizer.fisch.lu" version="3.32-35" preRepeat="until " postFor="to" preReturn="return" postForIn="in" preWhile="while " output="OUTPUT" input="INPUT" preFor="for" preExit="exit" preLeave="leave" ignoreCase="true" preThrow="throw" preForIn="foreach" stepFor="by" namespace="" author="henmott" created="2026-05-18" changedby="fishe" changed="2026-06-07" origin="Structorizer 3.30-10" text="&#34;//----------------------------------------------------------------------------------//&#34;,&#34;// Nom de la fonction: selectionnerFichier&#34;,&#34;// Entree / Sortie / I/O :  int move_over compteur de decalage (valeur lue par blocs de 3)&#34;,&#34;//                          char meme[MAX_FICHIERS][TAILLE_MAX_FICHIER] noms des fichiers&#34;,&#34;//                          int file_count nombre de fichiers disponibles&#34;,&#34;//                          Loto* loto pointeur vers la structure loto a remplir&#34;,&#34;// Description: Affiche la liste des fichiers, lit le choix de l'utilisateur,&#34;,&#34;//              ouvre le fichier selectionne et lit les valeurs numeriques une par une.&#34;,&#34;// Date de modification: 03.06.26&#34;,&#34;// Remarque: move_over sert a suivre le nombre de valeurs lues pour la sauvegarde par blocs&#34;,&#34;//----------------------------------------------------------------------------------//&#34;" comment="&#34;&#34;" color="ffffff" type="program" style="nice">
+	<children>
+		<call text="&#34; ouverture du repertoire courant&#34;" comment="" color="ff80c0" disabled="0" ismethoddecl="0"></call>
+		<alternative text="&#34;if (file_count == NULL) &#34;" comment="&#34;&#34;" color="ffffff" branch_colors="," disabled="0">
+			<qTrue>
+				<instruction text="&#34;Message d'erreur&#34;" comment="" color="ffffff" rotated="0" disabled="0"></instruction>
+			</qTrue>
+			<qFalse>
+				<instruction text="" comment="" color="ffffff" rotated="0" disabled="0"></instruction>
+			</qFalse>
+		</alternative>
+		<call text="&#34;printf(MSG_SELECT, file_count)&#34;" comment="&#34;&#34;" color="ff80c0" disabled="0" ismethoddecl="0"></call>
+		<call text="&#34;scanf(FORMAT_SCANF_INT, &amp;userAnswer)&#34;" comment="&#34;&#34;" color="ff80c0" disabled="0" ismethoddecl="0"></call>
+		<alternative text="&#34;if (userAnswer &#62; 0 &amp;&amp; userAnswer &#60;= file_count)&#34;" comment="&#34;Verification que le fichier s'est bien ouvert&#34;" color="ffffff" branch_colors="," disabled="0">
+			<qTrue>
+				<call text="&#34;printf(MSG_SELECTED, meme[userAnswer - 1])&#34;" comment="&#34;&#34;" color="ff80c0" disabled="0" ismethoddecl="0"></call>
+				<call text="&#34;strncpy(loto-&#62;nom, meme[userAnswer - 1], MAX_NOM_LOTO - 1)&#34;" comment="&#34;&#34;" color="ff80c0" disabled="0" ismethoddecl="0"></call>
+			</qTrue>
+			<qFalse>
+				<instruction text="&#34;Message d'erreur&#34;" comment="" color="ffffff" rotated="0" disabled="0"></instruction>
+				<instruction text="" comment="&#34;&#34;" color="ffffff" rotated="0" disabled="0"></instruction>
+			</qFalse>
+		</alternative>
+		<while text="&#34;while (loto-&#62;nbValeurs &#60; MAX_VALEURS &amp;&amp; fscanf(pointer, FORMAT_SCANF_STR39, Text1) == 1)&#34;" comment="&#34;Lecture valeur par valeur depuis le fichier&#34;,&#34;La boucle s'arrete quand on atteint MAX_VALEURS ou la fin du fichier (EOF)&#34;" color="ffffff" disabled="0">
+			<qWhile>
+				<call text="&#34;printf(MSG_VALEUR_LUE, Text1)&#34;" comment="&#34;&#34;" color="ff80c0" disabled="0" ismethoddecl="0"></call>
+				<instruction text="&#34;Conversion de la chaine lue en entier et stockage dans le tableau&#34;" comment="&#34;&#34;" color="ffffff" rotated="0" disabled="0"></instruction>
+				<instruction text="&#34;Incrémentation du compteur de decalage (suivi du nombre de valeurs lues)&#34;" comment="&#34;&#34;" color="ffffff" rotated="0" disabled="0"></instruction>
+			</qWhile>
+		</while>
+		<alternative text="&#34;if (loto-&#62;nbValeurs == 0)&#34;" comment="&#34;&#34;" color="ffffff" branch_colors="," disabled="0">
+			<qTrue>
+				<call text="&#34; printf(ERR_AUCUNE_DATA)&#34;" comment="&#34;&#34;" color="ff80c0" disabled="0" ismethoddecl="0"></call>
+			</qTrue>
+			<qFalse>
+				<instruction text="" comment="&#34;&#34;" color="ffffff" rotated="0" disabled="0"></instruction>
+			</qFalse>
+		</alternative>
+		<call text="&#34;fclose(pointer)&#34;" comment="&#34;&#34;" color="ff80c0" disabled="0" ismethoddecl="0"></call>
+	</children>
+</root>
