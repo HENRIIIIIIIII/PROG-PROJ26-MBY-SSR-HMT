@@ -36,8 +36,11 @@ int lireEntier(int *p)
 // Description: Lit un caractere au clavier avec validation du retour scanf.
 //              Boucle tant que le retour n'est pas 1 (saisie valide).
 //----------------------------------------------------------------------------------//
-int lireCaractere(char *p) {
-    while (scanf(FORMAT_SCANF_CHAR, p) != 1) {
+int lireCaractere(char *p) 
+{
+    while (scanf(FORMAT_SCANF_CHAR, p) != 1) 
+    {
+		// Si scanf ne retourne pas 1, cela signifie que la saisie n'est pas un caractere valide
         viderBuffer();
         printf(ERR_SAISIE_CHAR);
     }
@@ -50,9 +53,12 @@ int lireCaractere(char *p) {
 // Description: Lit une chaine de caracteres au clavier avec validation du retour.
 //              Boucle tant que le retour n'est pas 1 (saisie valide).
 //----------------------------------------------------------------------------------//
-int lireChaine(char *s, unsigned int n) {
+int lireChaine(char *s, unsigned int n) 
+{
     (void)n; // taille max fournie pour compatibilite future
-    while (scanf(FORMAT_SCANF_STR49, s) != 1) {
+    while (scanf(FORMAT_SCANF_STR49, s) != 1) 
+    {
+        // Si scanf ne retourne pas 1, cela signifie que la saisie n'est pas un caractere valide
         viderBuffer();
         printf(ERR_SAISIE_STR);
     }

@@ -12,9 +12,11 @@
 //----------------------------------------------------------------------------------//
 bool insererValeur(int valeurs[], int* nbValeurs, int nouvelleValeur)
 {
-    if (*nbValeurs >= MAX_VALEURS) {
+    if (*nbValeurs >= MAX_VALEURS) 
+    {
         return false;
     }
+	// Insertion de la nouvelle valeur a la fin du tableau
     valeurs[*nbValeurs] = nouvelleValeur;
     (*nbValeurs)++;
     return true;
@@ -29,7 +31,8 @@ bool insererValeur(int valeurs[], int* nbValeurs, int nouvelleValeur)
 //----------------------------------------------------------------------------------//
 bool supprimerDerniereValeur(int* nbValeurs)
 {
-    if (*nbValeurs <= 0) {
+    if (*nbValeurs <= 0) 
+    {
         return false;
     }
     (*nbValeurs)--;
@@ -47,7 +50,8 @@ bool supprimerDerniereValeur(int* nbValeurs)
 //----------------------------------------------------------------------------------//
 bool modifierDerniereValeur(int valeurs[], int nbValeurs, int nouvelleValeur)
 {
-    if (nbValeurs <= 0) {
+    if (nbValeurs <= 0) 
+    {
         return false;
     }
     valeurs[nbValeurs - 1] = nouvelleValeur;  // Remplacement de la derniere valeur
@@ -91,7 +95,8 @@ int compterOccurrences(int valeurs[], int nbValeurs, int valeur)
 //----------------------------------------------------------------------------------//
 int rechercherValeurPlusGagnante(int valeurs[], int nbValeurs)
 {
-    if (nbValeurs <= 0) {
+    if (nbValeurs <= 0) 
+    {
         return -1;
     }
     int meilleureValeur = valeurs[0];
@@ -103,8 +108,10 @@ int rechercherValeurPlusGagnante(int valeurs[], int nbValeurs)
     {
         int occ = compterOccurrences(valeurs, nbValeurs, valeurs[i]);
 
+		// Si le nombre d'occurrences de la valeur courante est superieur au maximum trouve jusqu'a present,
         if (occ > maxOcc)
         {
+			// On met a jour le maximum et la meilleure valeur correspondante
             maxOcc = occ;
             meilleureValeur = valeurs[i];
         }
@@ -139,6 +146,7 @@ int rechercherValeurMoinsGagnante(int valeurs[], int nbValeurs)
 
         if (occ < minOcc)
         {
+			// On met a jour le minimum et la pire valeur correspondante
             minOcc = occ;
             pireValeur = valeurs[i];
         }
