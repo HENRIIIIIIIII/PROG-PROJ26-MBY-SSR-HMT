@@ -2,7 +2,6 @@
 #define GESTION_AFFICHAGE_H
 
 #include "constantes.h"
-#include "GestionValeurlotoGagnante.h"
 
 // Affichage de la valeur qui est ressortie le plus de fois
 void afficherValeurPlusGagnante(int valeurs[], int nbValeurs);

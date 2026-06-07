@@ -91,4 +91,16 @@
 #define REPONSE_OUI_MIN      'o'
 #define REPONSE_OUI_MAJ      'O'
 
+// Structure unique regroupant toutes les donnees d'un loto
+typedef struct {
+    char nom[MAX_NOM_LOTO];
+    int  minVal;
+    int  maxVal;
+    int  nbComplementaires;
+    int  minComp;
+    int  maxComp;
+    int  valeurs[MAX_VALEURS];
+    int  nbValeurs;
+} Loto;
+
 #endif /* CONSTANTES_H */

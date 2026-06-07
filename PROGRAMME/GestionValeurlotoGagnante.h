@@ -4,18 +4,6 @@
 #include <stdbool.h>
 #include "constantes.h"
 
-// Structure unique regroupant toutes les donnees d'un loto
-typedef struct {
-    char nom[MAX_NOM_LOTO];
-    int  minVal;
-    int  maxVal;
-    int  nbComplementaires;
-    int  minComp;
-    int  maxComp;
-    int  valeurs[MAX_VALEURS];
-    int  nbValeurs;
-} Loto;
-
 // Insertion d'un nouveau tirage
 bool insererValeur(int valeurs[], int* nbValeurs, int nouvelleValeur);
 

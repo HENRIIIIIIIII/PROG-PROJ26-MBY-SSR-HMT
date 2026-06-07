@@ -7,7 +7,7 @@ CC      = gcc
 CFLAGS  = -Wall -Wextra -std=c11
 TARGET  = PROG-PROJ26-MBY-SSR-HMT
 SRCDIR  = PROGRAMME
-SOURCES = $(SRCDIR)/main.c $(SRCDIR)/GestionAffichage.c $(SRCDIR)/GestionValeurlotoGagnante.c
+SOURCES = $(SRCDIR)/main.c $(SRCDIR)/GestionAffichage.c $(SRCDIR)/GestionValeurlotoGagnante.c $(SRCDIR)/GestionFichiersLoto.c
 OBJS    = $(SOURCES:.c=.o)
 
 .PHONY: all clean run
@@ -18,7 +18,7 @@ $(TARGET): $(OBJS)
 	$(CC) $(CFLAGS) -o $@ $^
 
 %.o: %.c
-	$(CC) $(CFLAGS) -I$(SRCDIR) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 PROGRAMME/main.o: $(SRCDIR)/main.c
 	$(CC) $(CFLAGS) -c $< -o $@
