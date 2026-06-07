@@ -16,11 +16,11 @@
 #define MSG_BIENVENUE        "=== BIENVENUE DANS L'ANALYSEUR DE LOTO ===\n"
 #define MSG_CONFIG_TITLE     "\n--- CONFIGURATION DU LOTO CHARGE ---\n"
 #define MSG_CONFIG_INFO      "Nom : %s | Saisies enregistrees : %d\n"
-#define MSG_FICHIER_CREE     "\nFichier de configuration créé avec succès.\n"
+#define MSG_FICHIER_CREE     "\nFichier de configuration cree avec succes.\n"
 #define MSG_SUCCESS_FICHIER  "Succes\n"
 #define MSG_VALUES_AFFICHEES "Voici les valeurs lues : \n"
 #define MSG_VALEUR_LUE       "%s, "
-#define MSG_LOTO_EXISTANT    "Loto(s) déjà existant(s) ! Souhaitez-vous en créer un nouveau ? (o/n) "
+#define MSG_LOTO_EXISTANT    "Loto(s) deja existant(s) ! Souhaitez-vous en creer un nouveau ? (o/n) "
 
 // MENU PRINCIPAL
 #define MSG_MENU_TITRE       "\n--- MENU PRINCIPAL ---\n"
@@ -56,7 +56,7 @@
 #define ERR_NO_TXT           "Aucun fichier .txt trouve.\n"
 #define ERR_INVALID_SELEC    "Selection invalide.\n"
 #define ERR_FILE_OPEN        "Erreur !\n"
-#define ERR_TABLEAU_PLEIN    "Erreur : tableau plein, impossible d'insérer.\n"
+#define ERR_TABLEAU_PLEIN    "Erreur : tableau plein, impossible d'inserer.\n"
 #define ERR_AUCUNE_MODIF     "Erreur : aucune valeur a modifier.\n"
 #define ERR_AUCUNE_SUPPR     "Erreur : aucune valeur a supprimer.\n"
 #define ERR_SAUVEGARDER      "Erreur : impossible de sauvegarder dans le fichier %s\n"
@@ -67,19 +67,19 @@
 #define ERR_SAISIE_CHAR      "Erreur de saisie. Veuillez entrer un caractere valide : \n"
 #define ERR_SAISIE_STR       "Erreur de saisie. Veuillez entrer une chaine valide : \n"
 #define MSG_SELECT           "Selectionnez un numero de fichier (1/%d) : "
-#define MSG_SELECTED         "Vous avez sélectionné : %s\n"
-#define MSG_VALEUR_INSER     "Valeur insérée\n"
-#define MSG_SUPPRIME         "Dernière valeur supprimée.\n"
+#define MSG_SELECTED         "Vous avez selectionne : %s\n"
+#define MSG_VALEUR_INSER     "Valeur inseree\n"
+#define MSG_SUPPRIME         "Derniere valeur supprimee.\n"
 #define MSG_SAUV_INCO        "Sauvegarde en cours...\n"
-#define MSG_FICHIER_MAJ      "Fichier %s mis à jour avec succès.\n"
+#define MSG_FICHIER_MAJ      "Fichier %s mis a jour avec succes.\n"
 
 // AFFICHAGE STATISTIQUES
 #define MSG_VAL_PLUS_GAG     "\nValeur la plus gagnante : %d (%d occurrences)\n"
 #define MSG_VAL_MOINS_GAG    "\nValeur la moins gagnante : %d (%d occurrences)\n"
 #define MSG_6_MEILLEURS      "\n6 meilleurs numeros : "
 #define MSG_6_MOINS_BONS     "\n6 moins bons numeros : "
-#define MSG_FILE_SORT_VAL    "numéro %d de tirage présent : %d fois\n"
-#define MSG_FILE_SORT_TOP    "Les 6 meilleurs numéros à jouer :\n"
+#define MSG_FILE_SORT_VAL    "numéro %d de tirage present : %d fois\n"
+#define MSG_FILE_SORT_TOP    "Les 6 meilleurs numeros a jouer :\n"
 
 // CHAINES
 #define EXT_TXT              ".txt"
