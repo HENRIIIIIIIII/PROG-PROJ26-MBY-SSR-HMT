@@ -84,10 +84,12 @@ void afficher6MeilleursNumeros(int valeurs[], int nbValeurs)
                     // Decale tous les elements du top vers la droite pour faire de la place
                     for (int k = NUMERO_A_JOUER - 1; k > j; k--)
                     {
+						// Decalage des numeros et de leurs occurrences associees
                         numeros[k] = numeros[k - 1];
                         occurrences[k] = occurrences[k - 1];
                     }
 
+					// Insertion de la nouvelle valeur plus frequente
                     numeros[j] = valeur;
                     occurrences[j] = occ;
                     break;
@@ -102,6 +104,7 @@ void afficher6MeilleursNumeros(int valeurs[], int nbValeurs)
     {
         for (int j = i + 1; j < NUMERO_A_JOUER; j++)
         {
+			// On compare les numeros pour les mettre en ordre croissant, en ignorant les cases vides (-1)
             if (numeros[i] > numeros[j] && numeros[j] != -1)
             {
                 int temp = numeros[i];
@@ -111,8 +114,10 @@ void afficher6MeilleursNumeros(int valeurs[], int nbValeurs)
         }
     }
 
+	// Affichage des numeros les plus frequents (ceux qui ont le plus d'occurrences)
     printf(MSG_6_MEILLEURS);
 
+	// Affichage des numeros les plus frequents (ceux qui ont le plus d'occurrences)
     for (int i = 0; i < NUMERO_A_JOUER; i++)
     {
         if (numeros[i] != -1)
@@ -177,6 +182,7 @@ void afficher6MoinsBonsNumeros(int valeurs[], int nbValeurs)
                         occurrences[k] = occurrences[k - 1];
                     }
 
+					// Insertion de la nouvelle valeur moins frequente
                     numeros[j] = valeur;
                     occurrences[j] = occ;
                     break;
@@ -192,6 +198,7 @@ void afficher6MoinsBonsNumeros(int valeurs[], int nbValeurs)
         {
             if (numeros[i] > numeros[j] && numeros[j] != -1)
             {
+				// Echange des numeros pour les mettre en ordre croissant
                 int temp = numeros[i];
                 numeros[i] = numeros[j];
                 numeros[j] = temp;
@@ -201,6 +208,7 @@ void afficher6MoinsBonsNumeros(int valeurs[], int nbValeurs)
 
     printf(MSG_6_MOINS_BONS);
 
+	// Affichage des numeros les moins frequents (ceux qui ont le moins d'occurrences)
     for (int i = 0; i < NUMERO_A_JOUER; i++)
     {
         if (numeros[i] != -1)
