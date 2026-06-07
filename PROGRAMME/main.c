@@ -79,15 +79,16 @@ int main(void)
 
         if (file_count > 0)
         {
-            printf("Loto déjà existants ! Voulez-vous en créer un nouveau ?");
+            printf(MSG_LOTO_EXISTANT);
             scanf(FORMAT_SCANF_CHAR, &reponse);
             viderBuffer();
-            if (reponse == 'o' || reponse == 'O') {
+            if (reponse == REPONSE_OUI_MIN || reponse == REPONSE_OUI_MAJ) {
                 saisirNouveauLoto();
                 printf(MSG_FICHIER_CREE);
                 continue;
                 // La boucle recommence et trouvera le nouveau fichier
             }
+
             // L'utilisateur selectionne un fichier a lire
             int move_over = selectionnerFichier(0, meme, file_count, &monLoto);
 
@@ -237,6 +238,11 @@ int selectionnerFichier(int move_over, char meme[MAX_FICHIERS][TAILLE_MAX_FICHIE
     }
     printf("\n");
 
+    if (loto->nbValeurs == 0)
+    {
+        printf(ERR_AUCUNE_DATA);
+    }
+
     fclose(pointer);
     return move_over;
 }
@@ -313,7 +319,7 @@ void saisirNouveauLoto(void)
     scanf(FORMAT_SCANF_CHAR, &reponse);
     viderBuffer();
 
-    if (reponse == 'o' || reponse == 'O') {
+    if (reponse == REPONSE_OUI_MIN || reponse == REPONSE_OUI_MAJ) {
         nouveauLoto.nbComplementaires = 1;
         printf(MSG_CREAT_MINCOMP);
         scanf(FORMAT_SCANF_INT, &nouveauLoto.minComp);
@@ -328,7 +334,7 @@ void saisirNouveauLoto(void)
     scanf(FORMAT_SCANF_CHAR, &reponse);
     viderBuffer();
 
-    if (reponse == 'o' || reponse == 'O') {
+    if (reponse == REPONSE_OUI_MIN || reponse == REPONSE_OUI_MAJ) {
         int nbSimul;
         printf(MSG_CREAT_SIMUNB);
         scanf(FORMAT_SCANF_INT, &nbSimul);

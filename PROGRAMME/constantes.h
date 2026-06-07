@@ -16,10 +16,11 @@
 #define MSG_BIENVENUE        "=== BIENVENUE DANS L'ANALYSEUR DE LOTO ===\n"
 #define MSG_CONFIG_TITLE     "\n--- CONFIGURATION DU LOTO CHARGE ---\n"
 #define MSG_CONFIG_INFO      "Nom : %s | Saisies enregistrees : %d\n"
-#define MSG_FICHIER_CREE     "\nFichier de configuration cree avec succes.\n"
+#define MSG_FICHIER_CREE     "\nFichier de configuration créé avec succès.\n"
 #define MSG_SUCCESS_FICHIER  "Succes\n"
 #define MSG_VALUES_AFFICHEES "Voici les valeurs lues : \n"
 #define MSG_VALEUR_LUE       "%s, "
+#define MSG_LOTO_EXISTANT    "Loto(s) déjà existant(s) ! Souhaitez-vous en créer un nouveau ? (o/n) "
 
 // MENU PRINCIPAL
 #define MSG_MENU_TITRE       "\n--- MENU PRINCIPAL ---\n"
@@ -60,7 +61,7 @@
 #define ERR_CHOIX_INV        "Choix invalide.\n"
 #define ERR_AUCUNE_DATA      "Aucune donnee.\n"
 #define ERR_OUVERTURE        "Erreur lors de l'ouverture ou fichier vide.\n"
-#define MSG_SELECT           "Sélectionnez un numéro de fichier (1-%d) : "
+#define MSG_SELECT           "Sélectionnez un numéro de fichier (1/%d) : "
 #define MSG_SELECTED         "Vous avez sélectionné : %s\n"
 #define MSG_VALEUR_INSER     "Valeur insérée\n"
 #define MSG_SUPPRIME         "Dernière valeur supprimée.\n"
@@ -85,5 +86,7 @@
 #define FORMAT_SCANF_CHAR    "%c"
 #define FORMAT_SCANF_PTR     "%d"
 #define NEWLINE_FICHIER      "\n"
+#define REPONSE_OUI_MIN      'o'
+#define REPONSE_OUI_MAJ      'O'
 
 #endif /* CONSTANTES_H */
