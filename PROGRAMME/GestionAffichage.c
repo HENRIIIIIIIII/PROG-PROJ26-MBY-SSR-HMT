@@ -140,7 +140,7 @@ void afficher6MoinsBonsNumeros(int valeurs[], int nbValeurs)
     for (int i = 0; i < NUMERO_A_JOUER; i++)
     {
         numeros[i] = -1;
-        occurrences[i] = -1;
+        occurrences[i] = 999999;
     }
 
     // Pour chaque valeur du loto, on calcule son nombre d'occurrences

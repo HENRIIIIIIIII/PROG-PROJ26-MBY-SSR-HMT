@@ -100,6 +100,12 @@ int main(void)
                 printf(MSG_CONFIG_TITLE);
                 printf(MSG_CONFIG_INFO, monLoto.nom, monLoto.nbValeurs);
 
+                // Affichage des 6 meilleurs numeros au chargement
+                if (monLoto.nbValeurs > 0)
+                {
+                    afficher6MeilleursNumeros(monLoto.valeurs, monLoto.nbValeurs);
+                }
+
                 menuPrincipal(&monLoto, nomFichierLotoActuel);
 
                 // Sortie de la boucle apres avoir quitte le menu
@@ -110,7 +116,6 @@ int main(void)
                 printf(ERR_OUVERTURE);
                 break;
             }
-
         }
         else
         {
@@ -159,7 +164,7 @@ int scannerRepertoireTxt(int file_count, char meme[MAX_FICHIERS][TAILLE_MAX_FICH
             // Verification que l'extension .txt est bien en fin de chaine
             if (extension != NULL && strcmp(extension, EXT_TXT) == 0)
             {
-                printf("%s\n", de->d_name);
+                printf("%i. %s\n", (file_count + 1), de->d_name);
                 strcpy(meme[file_count], de->d_name);
                 file_count++;
             }
@@ -341,8 +346,15 @@ void saisirNouveauLoto(void)
         viderBuffer();
 
         // Generation de valeurs aleatoires dans la plage definie par l'utilisateur
-        for (int i = 0; i < nbSimul && i < MAX_VALEURS; i++) {
+        for (int i = 0; i < nbSimul && nouveauLoto.nbValeurs < MAX_VALEURS; i++) {
             nouveauLoto.valeurs[nouveauLoto.nbValeurs++] = nouveauLoto.minVal + rand() % (nouveauLoto.maxVal - nouveauLoto.minVal + 1);
+        }
+
+        // Generation des numeros complementaires si actives
+        if (nouveauLoto.nbComplementaires == 1) {
+            for (int i = 0; i < nbSimul && nouveauLoto.nbValeurs < MAX_VALEURS; i++) {
+                nouveauLoto.valeurs[nouveauLoto.nbValeurs++] = nouveauLoto.minComp + rand() % (nouveauLoto.maxComp - nouveauLoto.minComp + 1);
+            }
         }
     }
 
@@ -374,6 +386,7 @@ void menuPrincipal(Loto* loto, const char* nomFichierActuel)
         printf(MSG_MENU_7);
         printf(MSG_MENU_8);
         printf(MSG_MENU_9);
+        printf(MSG_MENU_10);
         printf(MSG_MENU_CHOIX);
 
         if (scanf(FORMAT_SCANF_PTR, &choix) != 1) {
@@ -441,11 +454,14 @@ void menuPrincipal(Loto* loto, const char* nomFichierActuel)
                 }
                 break;
             case 9:
+                printf(MSG_MENU_TIRAGES, loto->nbValeurs);
+                break;
+            case 10:
                 printf(MSG_SAUV_INCO);
                 sauvegarderFichierLoto(loto, nomFichierActuel);
                 break;
             default:
                 printf(ERR_CHOIX_INV);
         }
-    } while (choix != 9);
+    } while (choix != 10);
 }

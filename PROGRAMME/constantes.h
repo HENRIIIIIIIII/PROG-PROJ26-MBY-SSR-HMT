@@ -32,10 +32,12 @@
 #define MSG_MENU_6           "6. Afficher les 6 meilleurs numeros\n"
 #define MSG_MENU_7           "7. Afficher les 6 moins bons numeros\n"
 #define MSG_MENU_8           "8. Afficher le tri des frequences\n"
-#define MSG_MENU_9           "9. Quitter et sauvegarder\n"
+#define MSG_MENU_9           "9. Afficher le nombre de tirages\n"
+#define MSG_MENU_10          "10. Quitter et sauvegarder\n"
 #define MSG_MENU_CHOIX       "Votre choix : "
 #define MSG_MENU_VALEUR      "Valeur a inserer : "
 #define MSG_MENU_MODIF       "Nouvelle valeur pour remplacer la derniere : "
+#define MSG_MENU_TIRAGES     "Nombre de tirages enregistres : %d\n"
 
 // CREATION NOUVEAU LOTO
 #define MSG_CREAT_TITRE      "\n--- CREATION D'UN NOUVEAU LOTO ---\n"
