@@ -39,7 +39,7 @@ void menuPrincipal(Loto* loto, const char* nomFichierActuel);
 int main(void)
 {
     // Tableau de stockage des noms de fichiers
-    char meme[MAX_FICHIERS][TAILLE_MAX_FICHIER];    
+    static char meme[MAX_FICHIERS][TAILLE_MAX_FICHIER];    
 
     // Initialisation du générateur de nombres aléatoires avec l'horloge système
     // Permet d'obtenir des séquences différentes à chaque exécution pour la simulation
