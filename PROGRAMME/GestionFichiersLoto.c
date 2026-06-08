@@ -1,14 +1,3 @@
-#if defined(_MSC_VER)
-    // Compilation sous Windows
-    #include "dirent.h" // Librairie non disponible sous Windows
-#else
-    // Compilation sous linux
-    #ifndef _GNU_SOURCE
-        #define _GNU_SOURCE
-    #endif
-    #include <dirent.h> // Librairie disponible sous Linux
-#endif
-
 //-----------------------------------------------------------------------------------//
 // Nom du projet 		: GestionFichiersLoto
 // Nom du fichier 		: GestionFichiersLoto.c
@@ -26,6 +15,16 @@
 // Remarques :            
 //----------------------------------------------------------------------------------//
 
+#if defined(_MSC_VER)
+    // Compilation sous Windows
+    #include "dirent.h" // Librairie non disponible sous Windows
+#else
+    // Compilation sous linux
+    #ifndef _GNU_SOURCE
+        #define _GNU_SOURCE
+    #endif
+    #include <dirent.h> // Librairie disponible sous Linux
+#endif
 
 #include "GestionFichiersLoto.h"
 #include "GestionSaisie.h"

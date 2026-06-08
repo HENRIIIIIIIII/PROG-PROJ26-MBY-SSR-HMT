@@ -63,8 +63,8 @@ void afficherValeurMoinsGagnante(int valeurs[], int nbValeurs)
 //----------------------------------------------------------------------------------//
 void afficher6MeilleursNumeros(int valeurs[], int nbValeurs)
 {
-    int numeros[NUMERO_A_JOUER];
-    int occurrences[NUMERO_A_JOUER];
+    int numeros[NUMERO_A_JOUER] = { 0 };
+    int occurrences[NUMERO_A_JOUER] = { 0 };
 
     // Initialisation des tableaux avec -1 pour marquer les cases vides
     for (int i = 0; i < NUMERO_A_JOUER; i++)
@@ -156,8 +156,8 @@ void afficher6MeilleursNumeros(int valeurs[], int nbValeurs)
 //----------------------------------------------------------------------------------//
 void afficher6MoinsBonsNumeros(int valeurs[], int nbValeurs)
 {
-    int numeros[NUMERO_A_JOUER];
-    int occurrences[NUMERO_A_JOUER];
+    int numeros[NUMERO_A_JOUER] = { 0 };
+    int occurrences[NUMERO_A_JOUER] = { 0 };
 
     // Initialisation des tableaux avec -1 pour marquer les cases vides
     for (int i = 0; i < NUMERO_A_JOUER; i++)
