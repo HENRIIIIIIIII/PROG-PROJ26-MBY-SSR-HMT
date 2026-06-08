@@ -5,7 +5,7 @@
 | | |
 |---|---|
 | **Auteurs** | MBY · SSR · HMT |
-| **Langage** | C11 |
+| **Langage** | C |
 | **Compilateur** | GCC (Linux) / MSVC (Windows) |
 | **Projet** | PROG-PROJ26-MBY-SSR-HMT |
 
@@ -36,30 +36,15 @@ Ce programme est un **analyseur statistique de loto** écrit en C. Il permet de 
 
 ## Installation & Compilation
 
-### Prérequis
-
-- Un compilateur C compatible **C11** (GCC ≥ 8, Clang, ou MSVC)
-- Un système de fichiers POSIX (ou Windows avec `_MSC_VER`)
-
 ### Compilation sous Linux
 
 ```bash
-make
+make              # Compiler
+make run          # Compiler et lancer
+make clean        # Supprimer les fichiers objets et le binaire
 ```
 
-### Compilation sous Windows (Visual Studio)
-
-Ouvrir le fichier `.sln` dans le dossier `Projet_LOTO/` et compiler via Visual Studio.
-
-### Nettoyage
-
-```bash
-make clean
-```
-
----
-
-## 🎮 Utilisation
+##  Utilisation
 
 ### Lancer le programme
 
@@ -68,6 +53,11 @@ make run
 # ou
 ./PROG-PROJ26-MBY-SSR-HMT
 ```
+
+### Compilation sous Windows (Visual Studio)
+
+Ouvrir le fichier `.sln` dans le dossier `Projet_LOTO/` et compiler via Visual Studio.
+
 
 ### Menu principal
 
@@ -97,18 +87,6 @@ make run
 
 ---
 
-## 🔧 Build system
-
-### Makefile (Linux)
-
-```bash
-make              # Compiler
-make run          # Compiler et lancer
-make clean        # Supprimer les fichiers objets et le binaire
-```
-
----
-
 ## Fichiers de données
 
 Les données sont stockées dans des fichiers texte `.txt` avec le préfixe `log` :
@@ -117,8 +95,6 @@ Les données sont stockées dans des fichiers texte `.txt` avec le préfixe `log
 logLotoSuisse.txt
 logEuroMillions.txt
 ```
-
-Format : 6 valeurs par ligne, séparées par des espaces.
 
 ---
 
