@@ -1,6 +1,6 @@
-# 🎰 Analyseur de Loto
+# Analyseur de Loto
 
-> **Statistique et analyse des numéros joués au loto en C11**
+> **Statistique et analyse des numéros joués au loto**
 
 | | |
 |---|---|
@@ -11,7 +11,7 @@
 
 ---
 
-## 📋 Description
+## Description
 
 Ce programme est un **analyseur statistique de loto** écrit en C. Il permet de :
 
@@ -24,7 +24,7 @@ Ce programme est un **analyseur statistique de loto** écrit en C. Il permet de 
 
 ---
 
-## 📸 Captures d'écran
+## Donnée
 
 ![Menu Principal](https://github.com/user-attachments/assets/e9446f2c-4f47-4a39-98f9-9bb2d6b56836)
 
@@ -34,7 +34,7 @@ Ce programme est un **analyseur statistique de loto** écrit en C. Il permet de 
 
 ---
 
-## 🚀 Installation & Compilation
+## Installation & Compilation
 
 ### Prérequis
 
@@ -109,7 +109,7 @@ make clean        # Supprimer les fichiers objets et le binaire
 
 ---
 
-## 📁 Fichiers de données
+## Fichiers de données
 
 Les données sont stockées dans des fichiers texte `.txt` avec le préfixe `log` :
 
@@ -122,7 +122,7 @@ Format : 6 valeurs par ligne, séparées par des espaces.
 
 ---
 
-## 👥 Équipe
+## Équipe
 
 | Initiales | Rôle |
 |---|---|
