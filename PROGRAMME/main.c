@@ -57,14 +57,18 @@ int main(void)
     {
         int file_count = scannerRepertoireTxt(0, meme);
 
+        // Si un fichier a été trouvé
         if (file_count > 0)
         {
+            // Demande à l'utilisateur si il souhaite créer un nouveau loto
             printf(MSG_LOTO_EXISTANT);
             lireCaractere(&reponse);
             
             if (reponse == REPONSE_OUI_MIN || reponse == REPONSE_OUI_MAJ) {
+                // Saisie d'un nouveau loto
                 saisirNouveauLoto();
                 printf(MSG_FICHIER_CREE);
+                // Prochaine itération
                 continue;
                 // La boucle recommence et trouvera le nouveau fichier
             }
@@ -77,6 +81,7 @@ int main(void)
                 // Copie du nom du loto saisi dans le nom du fichier
                 strcpy(nomFichierLotoActuel, monLoto.nom);
 
+                // Affiche le loto sélectionné
                 printf(MSG_CONFIG_TITLE);
                 printf(MSG_CONFIG_INFO, monLoto.nom, monLoto.nbValeurs);
 
@@ -84,6 +89,7 @@ int main(void)
                 if (monLoto.nbValeurs > 0)
                     afficher6MeilleursNumeros(monLoto.valeurs, monLoto.nbValeurs);
 
+                // Affiche le menu principal
                 menuPrincipal(&monLoto, nomFichierLotoActuel);
 
                 // Sortie de la boucle apres avoir quitte le menu
