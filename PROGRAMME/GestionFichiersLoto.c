@@ -81,8 +81,9 @@ void sauvegarderFichierLoto(Loto* loto, const char* nomFichier)
 // Date de modification: 03.06.26
 // Remarque: Utilise opendir/readdir/closedir pour parcourir le filesystem
 //----------------------------------------------------------------------------------//
-int scannerRepertoireTxt(int file_count, char meme[MAX_FICHIERS][TAILLE_MAX_FICHIER])
+int scannerRepertoireTxt(char meme[MAX_FICHIERS][TAILLE_MAX_FICHIER])
 {
+    int file_count = 0;
     struct dirent* de;  // Pointeur vers l'entree du repertoire
 
     // ouverture du repertoire courant
@@ -95,7 +96,6 @@ int scannerRepertoireTxt(int file_count, char meme[MAX_FICHIERS][TAILLE_MAX_FICH
     }
 
     // Parcours de chaque entree du repertoire
-    file_count = 0;
     while ((de = readdir(dr)) != NULL)
     {
         // On ne conserve que les fichiers reguliers (pas les dossiers)
@@ -128,8 +128,9 @@ int scannerRepertoireTxt(int file_count, char meme[MAX_FICHIERS][TAILLE_MAX_FICH
 // Date de modification: 03.06.26
 // Remarque: move_over sert a suivre le nombre de valeurs lues pour la sauvegarde par blocs
 //----------------------------------------------------------------------------------//
-int selectionnerFichier(int move_over, char meme[MAX_FICHIERS][TAILLE_MAX_FICHIER], int file_count, Loto* loto)
+int selectionnerFichier(char meme[MAX_FICHIERS][TAILLE_MAX_FICHIER], int file_count, Loto* loto)
 {
+    int move_over = 0;
     FILE* pointer;
     int userAnswer;  // Numero du fichier selectionne par l'utilisateur
 

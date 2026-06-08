@@ -53,7 +53,7 @@ int main(void)
     // Boucle principale
     while (true)
     {
-        int file_count = scannerRepertoireTxt(0, meme);
+        int file_count = scannerRepertoireTxt(meme);
 
         // Si un fichier a été trouvé
         if (file_count > 0)
@@ -66,13 +66,13 @@ int main(void)
                 // Saisie d'un nouveau loto
                 saisirNouveauLoto();
                 printf(MSG_FICHIER_CREE);
-                // Prochaine itération
+                // Prochaine itération de la boucle while
                 continue;
                 // La boucle recommence et trouvera le nouveau fichier
             }
 
             // L'utilisateur selectionne un fichier a lire
-            int move_over = selectionnerFichier(0, meme, file_count, &monLoto);
+            int move_over = selectionnerFichier(meme, file_count, &monLoto);
 
             if (move_over >= 0)
             {
