@@ -5,7 +5,7 @@
 | | |
 |---|---|
 | **Auteurs** | MBY · SSR · HMT |
-| **Langage** | C11 (ISO/IEC 9899:2011) |
+| **Langage** | C11 |
 | **Compilateur** | GCC (Linux) / MSVC (Windows) |
 | **Projet** | PROG-PROJ26-MBY-SSR-HMT |
 
@@ -87,45 +87,6 @@ make run
 | **9** | Nombre de tirages | Total des tirages enregistrés |
 | **10** | Quitter et sauvegarder | Sauvegarde des données et sortie propre |
 
-### Création d'un nouveau loto
-
-Au premier lancement, le programme guide l'utilisateur :
-
-1. **Nom** du loto (ex: `EuroMillions`, `LotoSuisse`)
-2. **Plage de valeurs** (min / max) pour les numéros principaux
-3. **Numéros complémentaires** ? (Boule rouge, Star, etc.)
-4. **Mode simulation** ? (génération aléatoire de tirages)
-
-Les fichiers sont sauvegardés avec le préfixe `log` (ex: `logLotoSuisse.txt`).
-
----
-
-## 🏗️ Architecture du projet
-
-```
-PROG-PROJ26-MBY-SSR-HMT/
-├── PROGRAMME/              # Code source
-│   ├── main.c              # Point d'entrée + menu principal
-│   ├── constantes.h        # Constantes, macros, structure Loto
-│   ├── GestionAffichage.*  # Fonctions d'affichage (TUI)
-│   ├── GestionSaisie.*     # Saisie clavier sécurisée
-│   ├── GestionValeurlotoGagnante.*  # Analyse statistique
-│   ├── GestionFichiersLoto.*   # Lecture/écriture fichiers .txt
-│   └── dirent.h            # Support Windows pour lecture répertoire
-├── Projet_LOTO/            # Solution Visual Studio (Windows)
-├── Structograme/           # Diagrammes structuraux
-│   ├── GestionAffichage/
-│   ├── GestionFichiersLoto/
-│   ├── GestionSaisie/
-│   └── GestionValeurlotoGagnante/
-├── FLOWCHART/              # Diagrammes de flux (draw.io)
-├── DONNEE/                 # Spécifications du projet (PDF)
-├── PLANNING/               # Planning du projet
-├── BACKUP/                 # Sauvegardes (par auteur)
-├── Makefile                # Build system (Linux)
-└── README.md               # Ce fichier
-```
-
 ### Modules
 
 | Module | Responsabilité |
@@ -139,23 +100,6 @@ PROG-PROJ26-MBY-SSR-HMT/
 
 ---
 
-## 📊 Structure de données
-
-```c
-typedef struct {
-    char nom[MAX_NOM_LOTO];           // Nom du loto
-    int  minVal;                      // Valeur min (numéros principaux)
-    int  maxVal;                      // Valeur max (numéros principaux)
-    int  nbComplementaires;           // 0 ou 1
-    int  minComp;                     // Valeur min (complémentaires)
-    int  maxComp;                     // Valeur max (complementaires)
-    int  valeurs[MAX_VALEURS];        // Tableau des tirages (max 100)
-    int  nbValeurs;                   // Nombre de tirages enregistrés
-} Loto;
-```
-
----
-
 ## 🔧 Build system
 
 ### Makefile (Linux)
@@ -165,13 +109,6 @@ make              # Compiler
 make run          # Compiler et lancer
 make clean        # Supprimer les fichiers objets et le binaire
 ```
-
-| Variable | Valeur | Description |
-|---|---|---|
-| `CC` | `gcc` | Compilateur |
-| `CFLAGS` | `-Wall -Wextra -std=c11` | Drapeaux de compilation |
-| `TARGET` | `PROG-PROJ26-MBY-SSR-HMT` | Nom du binaire |
-| `SRCDIR` | `PROGRAMME` | Répertoire source |
 
 ---
 
@@ -195,13 +132,3 @@ Format : 6 valeurs par ligne, séparées par des espaces.
 | **MBY** | Développement |
 | **SSR** | Développement |
 | **HMT** | Développement |
-
----
-
-## 📝 Licence
-
-Projet académique — USE YOUR HEAD.
-
----
-
-**Compilé avec ❤️ en C11**
