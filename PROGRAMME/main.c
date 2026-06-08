@@ -66,37 +66,36 @@ int main(void)
                 // Saisie d'un nouveau loto
                 saisirNouveauLoto();
                 printf(MSG_FICHIER_CREE);
-                // Prochaine itération de la boucle while
-                continue;
-                // La boucle recommence et trouvera le nouveau fichier
-            }
-
-            // L'utilisateur selectionne un fichier a lire
-            int move_over = selectionnerFichier(meme, file_count, &monLoto);
-
-            if (move_over >= 0)
-            {
-                // Copie du nom du loto saisi dans le nom du fichier
-                strcpy(nomFichierLotoActuel, monLoto.nom);
-
-                // Affiche le loto sélectionné
-                printf(MSG_CONFIG_TITLE);
-                printf(MSG_CONFIG_INFO, monLoto.nom, monLoto.nbValeurs);
-
-                // Affichage des 6 meilleurs numeros au chargement
-                if (monLoto.nbValeurs > 0)
-                    afficher6MeilleursNumeros(monLoto.valeurs, monLoto.nbValeurs);
-
-                // Affiche le menu principal
-                menuPrincipal(&monLoto, nomFichierLotoActuel);
-
-                // Sortie de la boucle apres avoir quitte le menu
-                break;
             }
             else
             {
-                printf(ERR_OUVERTURE);
-                break;
+                // L'utilisateur selectionne un fichier a lire
+                int move_over = selectionnerFichier(meme, file_count, &monLoto);
+
+                if (move_over >= 0)
+                {
+                    // Copie du nom du loto saisi dans le nom du fichier
+                    strcpy(nomFichierLotoActuel, monLoto.nom);
+
+                    // Affiche le loto sélectionné
+                    printf(MSG_CONFIG_TITLE);
+                    printf(MSG_CONFIG_INFO, monLoto.nom, monLoto.nbValeurs);
+
+                    // Affichage des 6 meilleurs numeros au chargement
+                    if (monLoto.nbValeurs > 0)
+                        afficher6MeilleursNumeros(monLoto.valeurs, monLoto.nbValeurs);
+
+                    // Affiche le menu principal
+                    menuPrincipal(&monLoto, nomFichierLotoActuel);
+
+                    // Sortie de la boucle apres avoir quitte le menu
+                    break;
+                }
+                else
+                {
+                    printf(ERR_OUVERTURE);
+                    break;
+                }
             }
         }
         else
