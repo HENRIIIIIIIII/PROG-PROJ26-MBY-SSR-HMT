@@ -26,13 +26,10 @@ Ce programme est un **analyseur statistique de loto** écrit en C. Il permet de 
 
 ## 📸 Captures d'écran
 
-### Écran d'accueil et menu principal
 ![Menu Principal](https://github.com/user-attachments/assets/e9446f2c-4f47-4a39-98f9-9bb2d6b56836)
 
-### Analyse statistique
 ![Statistiques](https://github.com/user-attachments/assets/cfd6b8bd-d563-4b3f-92a8-9b9bdbff56e6)
 
-### Gestion des fichiers et tirages
 ![Gestion Fichiers](https://github.com/user-attachments/assets/e11a4cf3-8d38-44eb-b0e1-4306545aa796)
 
 ---
