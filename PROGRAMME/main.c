@@ -123,20 +123,26 @@ void saisirNouveauLoto(void)
     char nomFichier[TAILLE_MAX_FICHIER];
     char reponse;
 
+    // Demande aux utilisateurs les paramètres du loto
     printf(MSG_CREAT_TITRE);
     printf(MSG_CREAT_NOM);
     lireChaine(nouveauLoto.nom, TAILLE_MAX_FICHIER);
 
+    // Valeur min
     printf(MSG_CREAT_MIN);
     lireEntier(&nouveauLoto.minVal);
 
+    // Valeur max
     printf(MSG_CREAT_MAX);
     lireEntier(&nouveauLoto.maxVal);
 
+    // Numeros complementaires
     printf(MSG_CREAT_COMP);
     lireCaractere(&reponse);
 
-    if (reponse == REPONSE_OUI_MIN || reponse == REPONSE_OUI_MAJ) {
+    // Option pour ajouté les numeros complementaires
+    if (reponse == REPONSE_OUI_MIN || reponse == REPONSE_OUI_MAJ) 
+    {
         nouveauLoto.nbComplementaires = 1;
         printf(MSG_CREAT_MINCOMP);
         lireEntier(&nouveauLoto.minComp);
@@ -145,6 +151,7 @@ void saisirNouveauLoto(void)
         lireEntier(&nouveauLoto.maxComp);
     }
 
+    // Demande aux utilisateurs pour option simulation
     printf(MSG_CREAT_SIMU);
     lireCaractere(&reponse);
 
@@ -183,7 +190,9 @@ void menuPrincipal(Loto* loto, const char* nomFichierActuel)
     int choix = 0;
     int valeur;
 
-    do {
+    do 
+    {
+        // print le menu principal options pour l'utilisateur
         printf(MSG_MENU_TITRE);
         printf(MSG_MENU_1);
         printf(MSG_MENU_2);
@@ -197,12 +206,16 @@ void menuPrincipal(Loto* loto, const char* nomFichierActuel)
         printf(MSG_MENU_10);
         printf(MSG_MENU_CHOIX);
 
-        if (scanf(FORMAT_SCANF_INT, &choix) != 1) {
+        // Lecture du choix user
+        if (scanf(FORMAT_SCANF_INT, &choix) != 1) 
+        {
             viderBuffer();
             continue;
         }
 
-        switch (choix) {
+        // Effectue tâche dépendant du choix du user
+        switch (choix) 
+        {
             case 1:
                 printf(MSG_MENU_VALEUR);
                 lireEntier(&valeur);
