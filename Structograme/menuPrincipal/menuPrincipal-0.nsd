@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns:nsd="https://structorizer.fisch.lu" version="3.30-10" preRepeat="until " postFor="to" preReturn="return" postForIn="in" preWhile="while " output="OUTPUT" input="INPUT" preFor="for" preExit="exit" preLeave="leave" ignoreCase="true" preThrow="throw" preForIn="foreach" stepFor="by" author="matbonny" created="2026-06-08" changedby="matbonny" changed="2026-06-08" origin="Structorizer 3.30-10" text="&#34;menuPrincipal&#34;" comment="&#34;&#34;" color="ffffff" type="sub" style="nice">
+	<children>
+		<instruction text="&#34;initialisation des choix à 0 et des valeurs&#34;" comment="&#34;&#34;" color="ffffff" rotated="0" disabled="0"></instruction>
+		<repeat text="&#34;jusqu'à que nous décidons de quitter le menu&#34;" comment="&#34;&#34;" color="ffffff" disabled="0">
+			<qRepeat>
+				<call text="&#34;affiche les différents options du menu&#34;" comment="&#34;&#34;" color="ffffff" disabled="0"></call>
+				<instruction text="&#34;lecture de l'entrée de l'utilisateur&#34;" comment="&#34;&#34;" color="ffffff" rotated="0" disabled="0"></instruction>
+				<case text="&#34;choix le l'entrée de l'utilisateur&#34;,&#34;1&#34;,&#34;2&#34;,&#34;3&#34;,&#34;4&#34;,&#34;5&#34;,&#34;6&#34;,&#34;7&#34;,&#34;8&#34;,&#34;9&#34;,&#34;10&#34;,&#34;default&#34;" comment="&#34;&#34;" color="ffffff" disabled="0">
+					<qCase>
+						<call text="&#34;insertion d'un nouvelle valeur&#34;" comment="&#34;&#34;" color="ffffff" disabled="0"></call>
+					</qCase>
+					<qCase>
+						<call text="&#34;modification de la dernière valeur&#34;" comment="&#34;&#34;" color="ffffff" disabled="0"></call>
+					</qCase>
+					<qCase>
+						<call text="&#34;suppression de la dernière valeur&#34;" comment="&#34;&#34;" color="ffffff" disabled="0"></call>
+					</qCase>
+					<qCase>
+						<call text="&#34;affichage de la valeur la plus gagnante&#34;" comment="&#34;&#34;" color="ffffff" disabled="0"></call>
+					</qCase>
+					<qCase>
+						<call text="&#34;affichage de la valeur la moins gagnante&#34;" comment="&#34;&#34;" color="ffffff" disabled="0"></call>
+					</qCase>
+					<qCase>
+						<call text="&#34;affichage des 6 meilleurs numéros&#34;" comment="&#34;&#34;" color="ffffff" disabled="0"></call>
+					</qCase>
+					<qCase>
+						<call text="&#34;affichage des 6 moins bons numéros&#34;" comment="&#34;&#34;" color="ffffff" disabled="0"></call>
+					</qCase>
+					<qCase>
+						<call text="&#34;affichage du tri des fréquences&#34;" comment="&#34;&#34;" color="ffffff" disabled="0"></call>
+					</qCase>
+					<qCase>
+						<call text="&#34;affichage du nombre de tirages&#34;" comment="&#34;&#34;" color="ffffff" disabled="0"></call>
+					</qCase>
+					<qCase>
+						<call text="&#34;Quitter et sauvegarder le fichier&#34;" comment="&#34;&#34;" color="ffffff" disabled="0"></call>
+					</qCase>
+					<qCase>
+						<instruction text="&#34;affiche une erreur de choix&#34;" comment="&#34;&#34;" color="ffffff" rotated="0" disabled="0"></instruction>
+					</qCase>
+				</case>
+			</qRepeat>
+		</repeat>
+	</children>
+</root>
