@@ -1,3 +1,18 @@
+//-----------------------------------------------------------------------------------//
+// Nom du projet 		: GestionValeurlotoGagnante
+// Nom du fichier 		: GestionValeurlotoGagnante.c
+// Date de création 	: 18.05.26
+// Date de modification : 08.06.26
+//
+// Auteurs 				: MBY / SSR / HMT
+//
+// Version				: 1.0
+//
+// Description          : Ceci .c contient toutes les fonctions qui lisent les entrées des utilisateurs pour ajouter des valeurs supprimer, ou modifier. 
+//                          et peuvent ainsi déterminer la valeur la plus probable à gagner et la moins probable.
+//
+// Remarques :            
+//----------------------------------------------------------------------------------//
 #include <stdbool.h>
 #include "GestionValeurlotoGagnante.h"
 

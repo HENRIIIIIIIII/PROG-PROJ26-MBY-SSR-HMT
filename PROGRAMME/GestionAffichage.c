@@ -1,3 +1,20 @@
+//-----------------------------------------------------------------------------------//
+// Nom du projet 		: GestionAffichage
+// Nom du fichier 		: GestionAffichage.c
+// Date de création 	: 18.05.26
+// Date de modification : 08.06.26
+//
+// Auteurs 				: MBY / SSR / HMT
+//
+// Version				: 1.0
+//
+// Description          :  Le fichier `.c` contient des fonctions pour afficher les chiffres les plus et moins gagnants, les mois les plus fréquents
+//                          Uns les 6 chiffres les plus populaires.
+//                          
+//                    
+// Remarques :            
+//----------------------------------------------------------------------------------//
+
 #include <stdio.h>
 #include "GestionAffichage.h"
 #include "GestionValeurlotoGagnante.h"

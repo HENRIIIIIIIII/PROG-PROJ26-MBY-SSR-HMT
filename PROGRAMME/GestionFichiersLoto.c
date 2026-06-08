@@ -9,6 +9,24 @@
     #include <dirent.h> // Librairie disponible sous Linux
 #endif
 
+//-----------------------------------------------------------------------------------//
+// Nom du projet 		: GestionFichiersLoto
+// Nom du fichier 		: GestionFichiersLoto.c
+// Date de création 	: 18.05.26
+// Date de modification : 08.06.26
+//
+// Auteurs 				: MBY / SSR / HMT
+//
+// Version				: 1.0
+//
+// Description          :  Le fichier `.c` contient des fonctions de gestion pour ecrit les valeurs du loto dans un fichier texte Scanne.
+//                         Affiche la liste des fichiers, lit le choix de l'utilisateur, ouvre le fichier selectionne et lit les valeurs numeriques une par une.
+//                          
+//                    
+// Remarques :            
+//----------------------------------------------------------------------------------//
+
+
 #include "GestionFichiersLoto.h"
 #include "GestionSaisie.h"
 #include <string.h> // Pour strstr, strcmp, strcpy, strncpy

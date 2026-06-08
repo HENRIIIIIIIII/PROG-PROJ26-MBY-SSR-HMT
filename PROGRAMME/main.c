@@ -8,7 +8,7 @@
 //
 // Version				: 1.0
 //
-// Description          : 
+// Description          : Ce code contient la logique et la relation entre toutes les fonctions.
 //
 // Remarques :            lien pour la table ASCII :
 // 						  -> http://www.asciitable.com/

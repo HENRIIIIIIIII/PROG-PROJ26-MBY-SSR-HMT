@@ -1,3 +1,18 @@
+//-----------------------------------------------------------------------------------//
+// Nom du projet 		: GestionSaisie
+// Nom du fichier 		: GestionSaisie.c
+// Date de création 	: 18.05.26
+// Date de modification : 08.06.26
+//
+// Auteurs 				: MBY / SSR / HMT
+//
+// Version				: 1.0
+//
+// Description          : Le fichier `.c` contient des fonctions de gestion pour le `scanf`, permettant de : vider le buffer, lire l'entrée
+//                          clavier et gérer les caractères.
+//                    
+// Remarques :            
+//----------------------------------------------------------------------------------//
 #include <stdio.h>
 #include "constantes.h"
 
